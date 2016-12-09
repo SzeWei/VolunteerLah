@@ -1,19 +1,24 @@
 class ProfilesController < ApplicationController
 	def new
 		if user_signed_in?
-			@user = current_user 
+			@user 		= current_user
+			@profile 	= @user.create_profile 
 		end
 	end
 
 	def create
 		@user = current_user
 		@profile = current_user.build_profile(profile_params)
-		if @profile.save
-			redirect_to @profile
-			flash[:notice] = "Profile has been saved."
-		else
-			render "profiles/new"
-			flash[:notice] = "Error saving profile."
+		if @user == @profile.user || @user.admin?
+			respond_to do |format|
+				if @profile.save
+					format.html { redirect_to @profile, notice: 'Profile was successfully created.' }
+	          		format.json { render :show, status: :created, location: @profile }
+				else
+					format.html { render :new }
+	          		format.json { render json: @profile.errors, status: :unprocessable_entity }
+				end
+			end
 		end
 	end
 
@@ -26,18 +31,20 @@ class ProfilesController < ApplicationController
 		@user = current_user
 		@profile = Profile.find(params[:id])
 
-		if @user == @profile.user || @user.admin?
-			@profile.update_attributes(profile_params)
-			if @profile.save
-				redirect_to @profile
-				flash[:notice] = "Profile has been saved."
+		respond_to do |format|
+			if @user == @profile.user || @user.admin?
+				@profile.update_attributes(profile_params)
+				if @profile.save
+					format.html { redirect_to @profile, notice: 'Profile was successfully updated.' }
+	      			format.json { render :show, status: :ok, location: @profile }
+				else
+					format.html { render :edit }
+	      			format.json { render json: @profile.errors, status: :unprocessable_entity }
+				end
 			else
-				render "profiles/edit"
-				flash[:notice] = "Error saving profile."
+				format.html { redirect_to @profile, notice: 'You must own this profile to edit it.' }
+	      		format.json { render :show, status: :unprocessable_entity }
 			end
-		else
-			redirect_to @profile
-			flash[:alert] = "You can only edit your own profile."
 		end
 	end
 

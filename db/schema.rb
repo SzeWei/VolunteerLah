@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161209135212) do
+ActiveRecord::Schema.define(version: 20161209141952) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "organisation_profiles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "field_or_industry"
+    t.string   "website"
+    t.text     "org_description"
+    t.integer  "org_size"
+    t.string   "language"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "contact_person"
+    t.text     "address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.index ["user_id"], name: "index_organisation_profiles_on_user_id", using: :btree
+  end
 
   create_table "profiles", force: :cascade do |t|
     t.text     "skills"
@@ -59,5 +80,6 @@ ActiveRecord::Schema.define(version: 20161209135212) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "organisation_profiles", "users"
   add_foreign_key "profiles", "users"
 end

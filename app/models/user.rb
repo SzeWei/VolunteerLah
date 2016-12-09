@@ -5,6 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
   devise :omniauthable, :omniauth_providers => [:facebook]
   has_one :profile, :dependent => :destroy
+  has_one :organisation_profile, :dependent => :destroy
   has_many :events
   has_many :event_volunteers
   validates :email, presence: true
