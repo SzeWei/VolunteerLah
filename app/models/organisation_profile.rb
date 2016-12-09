@@ -4,4 +4,5 @@ class OrganisationProfile < ApplicationRecord
   validates :city, presence: true
   validates :state, presence: true
   validates :phone, presence: true
+  mount_uploaders :org_photos, OrgPhotosUploader
 end

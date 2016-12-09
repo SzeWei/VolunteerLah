@@ -10,12 +10,12 @@ class OrganisationProfilesController < ApplicationController
   # GET /organisation_profiles/1
   # GET /organisation_profiles/1.json
   def show
-    @organisation_profiles = OrganisationProfile.find(params[:id])
+    set_organisation_profile
   end
 
   # GET /organisation_profiles/new
   def new
-    @organisation_profile = OrganisationProfile.new
+    @organisation_profile = current_user.build_organisation_profile
   end
 
   # GET /organisation_profiles/1/edit
@@ -26,7 +26,7 @@ class OrganisationProfilesController < ApplicationController
   # POST /organisation_profiles
   # POST /organisation_profiles.json
   def create
-    @organisation_profile = OrganisationProfile.new(organisation_profile_params)
+    @organisation_profile = current_user.build_organisation_profile(organisation_profile_params)
     if current_user = @organisation_profile.user || current_user.admin?
       respond_to do |format|
         if @organisation_profile.save
@@ -43,6 +43,7 @@ class OrganisationProfilesController < ApplicationController
   # PATCH/PUT /organisation_profiles/1
   # PATCH/PUT /organisation_profiles/1.json
   def update
+    set_organisation_profile
     if current_user = @organisation_profile.user || current_user.admin?
       respond_to do |format|
         if @organisation_profile.update(organisation_profile_params)
@@ -59,6 +60,7 @@ class OrganisationProfilesController < ApplicationController
   # DELETE /organisation_profiles/1
   # DELETE /organisation_profiles/1.json
   def destroy
+    set_organisation_profile
     if current_user = @organisation_profile.user || current_user.admin?
       @organisation_profile.destroy
       respond_to do |format|
@@ -76,6 +78,6 @@ class OrganisationProfilesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def organisation_profile_params
-      params.require(:organisation_profile).permit(:name, :field_or_industry, :website, :org_description, :org_size, :language, :phone, :fax, :email, :contact_person, :address, :postal_code, :city, :state, :user_id)
+      params.require(:organisation_profile).permit(:name, :field_or_industry, :website, :org_description, :org_size, :language, :phone, :fax, :email, :contact_person, :address, :postal_code, :city, :state, {org_photos: []})
     end
 end
