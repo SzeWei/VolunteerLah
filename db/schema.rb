@@ -10,10 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161208140951) do
+ActiveRecord::Schema.define(version: 20161209154808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "event_details", force: :cascade do |t|
+    t.string   "venue_title"
+    t.string   "street_address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "state"
+    t.string   "contact_num"
+    t.integer  "event_id"
+    t.string   "day_time"
+    t.float    "longitude",      null: false
+    t.float    "latitude",       null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.index ["event_id"], name: "index_event_details_on_event_id", using: :btree
+  end
+
+  create_table "event_volunteers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.integer  "status",     default: 0
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+    t.index ["event_id"], name: "index_event_volunteers_on_event_id", using: :btree
+    t.index ["user_id"], name: "index_event_volunteers_on_user_id", using: :btree
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string   "title",                    null: false
+    t.string   "description"
+    t.date     "start_date",               null: false
+    t.date     "end_date",                 null: false
+    t.integer  "category",                 null: false
+    t.integer  "user_id"
+    t.integer  "target_space"
+    t.json     "event_photos"
+    t.integer  "status",       default: 0, null: false
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -32,4 +73,8 @@ ActiveRecord::Schema.define(version: 20161208140951) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
+  add_foreign_key "event_details", "events"
+  add_foreign_key "event_volunteers", "events"
+  add_foreign_key "event_volunteers", "users"
+  add_foreign_key "events", "users"
 end

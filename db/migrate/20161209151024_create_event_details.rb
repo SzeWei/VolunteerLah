@@ -12,7 +12,7 @@ class CreateEventDetails < ActiveRecord::Migration[5.0]
       t.float :longitude, null: false
       t.float :latitude, null: false
 
-      t.timestamps
+      t.timestamps null:false
     end
   end
 end

@@ -5,7 +5,7 @@ class CreateEventVolunteers < ActiveRecord::Migration[5.0]
       t.belongs_to :event, foreign_key: true
       t.integer :status, default: 0
 
-      t.timestamps
+      t.timestamps null:false
     end
   end
 end
