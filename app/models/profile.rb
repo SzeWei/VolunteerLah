@@ -4,4 +4,5 @@ class Profile < ApplicationRecord
 	validates :state, presence: true
 	validates :city, presence:true
 	validates :phone, presence: true 
+	mount_uploader :avatar, AvatarUploader
 end
