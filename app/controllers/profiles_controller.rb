@@ -18,21 +18,26 @@ class ProfilesController < ApplicationController
 	end
 
 	def edit
-		@user = current_user
+		@user = current_user if user_signed_in?
 		@profile = current_user.profile
 	end
 
 	def update
 		@user = current_user
-		@profile = params[:id]
-		@profile.update_attributes(profile_params)
+		@profile = Profile.find(params[:id])
 
-		if @profile.save
-			redirect_to @profile
-			flash[:notice] = "Profile has been saved."
+		if @user == @profile.user || @user.admin?
+			@profile.update_attributes(profile_params)
+			if @profile.save
+				redirect_to @profile
+				flash[:notice] = "Profile has been saved."
+			else
+				render "profiles/edit"
+				flash[:notice] = "Error saving profile."
+			end
 		else
-			render "profiles/edit"
-			flash[:notice] = "Error saving profile."
+			redirect_to @profile
+			flash[:alert] = "You can only edit your own profile."
 		end
 	end
 
