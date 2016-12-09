@@ -36,6 +36,8 @@ gem 'devise'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  gem 'rspec-given'
+  gem 'rspec-rails', '~> 3.5'
 end
 
 group :development do
@@ -45,8 +47,40 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'rspec-rails', '~> 3.5'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# For managing uploaded file upload
+gem "mini_magick"
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
+gem 'fog'
+
+# For security issue
+gem "figaro"
+
+# For map relevant code
+gem 'geocoder'
+
+# For facbeook login
+gem 'omniauth'
+gem 'omniauth-facebook'
+
+# Bootstrap gem
+gem 'bootstrap-sass', '~>3.3.3'
+gem 'will_paginate'
+gem 'bootstrap-datepicker-rails'
+gem 'will_paginate-bootstrap'
+gem 'date_validator'
+gem 'validates_overlap'
+
+# Letter opener
+gem "letter_opener", :group => :development
+
+# For scope search
+gem 'pg_search'
+
+# For queuing email
+gem 'sidekiq'
+
