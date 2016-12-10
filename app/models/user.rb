@@ -8,8 +8,9 @@ class User < ApplicationRecord
   has_one :organisation_profile, :dependent => :destroy
   has_many :events
   has_many :event_volunteers
-  validates :email, presence: true
-  validates :username, presence: true
+  validates :name, presence: true
+  validates :email, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true
 
   enum :role => [:admin, :organisation, :volunteer]
 
