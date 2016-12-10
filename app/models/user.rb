@@ -6,6 +6,8 @@ class User < ApplicationRecord
   devise :omniauthable, :omniauth_providers => [:facebook]
   has_one :profile, :dependent => :destroy
   has_one :organisation_profile, :dependent => :destroy
+  accepts_nested_attributes_for :profile
+  accepts_nested_attributes_for :organisation_profile
   has_many :events
   has_many :event_volunteers
   validates :name, presence: true
