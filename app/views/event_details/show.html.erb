@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Venue title:</strong>
+  <%= @event_detail.venue_title %>
+</p>
+
+<p>
+  <strong>Street address:</strong>
+  <%= @event_detail.street_address %>
+</p>
+
+<p>
+  <strong>Postal code:</strong>
+  <%= @event_detail.postal_code %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @event_detail.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @event_detail.state %>
+</p>
+
+<p>
+  <strong>Contact num:</strong>
+  <%= @event_detail.contact_num %>
+</p>
+
+<p>
+  <strong>Event:</strong>
+  <%= @event_detail.event %>
+</p>
+
+<p>
+  <strong>Day time:</strong>
+  <%= @event_detail.day_time %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @event_detail.longitude %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @event_detail.latitude %>
+</p>
+
+<%= link_to 'Edit', edit_event_detail_path(@event_detail) %> |
+<%= link_to 'Back', event_details_path %>
