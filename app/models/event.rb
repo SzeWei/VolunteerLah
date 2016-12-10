@@ -4,6 +4,7 @@ class Event < ApplicationRecord
   enum status: { open:0, cancelled: 1, expired:2 }
   has_one :event_detail
   has_many :event_volunteers
+  mount_uploaders :event_photos, EventPhotosUploader
 
   validates :title, presence: true
   validates :start_date, presence: true

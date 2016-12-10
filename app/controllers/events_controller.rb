@@ -19,8 +19,6 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @user = current_user
-    @event = @user.events.new
   end
 
   # GET /events/1/edit
@@ -89,6 +87,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :start_date, :end_date, :category, :user, :target_space, :event_photos, :status)
+      params.require(:event).permit(:title, :description, :start_date, :end_date, :category, :user, :target_space, {event_photos: []}, :status)
     end
 end
