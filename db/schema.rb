@@ -10,10 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+
 ActiveRecord::Schema.define(version: 20161209154808) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
 
   create_table "event_details", force: :cascade do |t|
     t.string   "venue_title"
@@ -54,27 +56,81 @@ ActiveRecord::Schema.define(version: 20161209154808) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+
+  create_table "organisation_profiles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "field_or_industry"
+    t.string   "website"
+    t.text     "org_description"
+    t.integer  "org_size"
+    t.string   "language"
+    t.string   "phone"
+    t.string   "fax"
+    t.string   "email"
+    t.string   "contact_person"
+    t.text     "address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "user_id"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+    t.json     "org_photos"
+    t.index ["user_id"], name: "index_organisation_profiles_on_user_id", using: :btree
+  end
+
+  create_table "profiles", force: :cascade do |t|
+    t.text     "skills"
+    t.text     "description"
+    t.string   "gender"
+    t.string   "phone"
+    t.text     "street_address"
+    t.string   "postal_code"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country",        default: "Malaysia"
+    t.date     "birthdate"
+    t.string   "contact_email"
+    t.string   "language"
+    t.text     "work"
+    t.text     "education"
+    t.integer  "user_id"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.string   "avatar"
+    t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
+
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "email",                  default: "",           null: false
+    t.string   "encrypted_password",     default: "",           null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0,            null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+    t.integer  "role",                   default: 2
+    t.string   "username"
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name",                   default: "New Member"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
+
 
   add_foreign_key "event_details", "events"
   add_foreign_key "event_volunteers", "events"
   add_foreign_key "event_volunteers", "users"
   add_foreign_key "events", "users"
+
+  add_foreign_key "organisation_profiles", "users"
+  add_foreign_key "profiles", "users"
+
 end
