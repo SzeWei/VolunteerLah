@@ -10,7 +10,6 @@ class User < ApplicationRecord
   has_many :event_volunteers
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
-  validates :username, presence: true, uniqueness: true
 
   enum :role => [:admin, :organisation, :volunteer]
 
