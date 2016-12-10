@@ -27,15 +27,17 @@ class OrganisationProfilesController < ApplicationController
   # POST /organisation_profiles
   # POST /organisation_profiles.json
   def create
-    @organisation_profile = current_user.build_organisation_profile(organisation_profile_params)
-    if current_user = @organisation_profile.user || current_user.admin?
-      respond_to do |format|
-        if @organisation_profile.save
-          format.html { redirect_to @organisation_profile, notice: 'Organisation profile was successfully created.' }
-          format.json { render :show, status: :created, location: @organisation_profile }
-        else
-          format.html { render :new }
-          format.json { render json: @organisation_profile.errors, status: :unprocessable_entity }
+    if current_user.organisation?
+      @organisation_profile = current_user.build_organisation_profile(organisation_profile_params)
+      if current_user = @organisation_profile.user || current_user.admin?
+        respond_to do |format|
+          if @organisation_profile.save
+            format.html { redirect_to @organisation_profile, notice: 'Organisation profile was successfully created.' }
+            format.json { render :show, status: :created, location: @organisation_profile }
+          else
+            format.html { render :new }
+            format.json { render json: @organisation_profile.errors, status: :unprocessable_entity }
+          end
         end
       end
     end

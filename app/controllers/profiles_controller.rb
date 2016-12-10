@@ -2,8 +2,12 @@ class ProfilesController < ApplicationController
 	def new
 		if user_signed_in?
 			@user 		= current_user
-			@profile 	= @user.create_profile 
+			@profile 	= @user.build_profile 
 		end
+	end
+
+	def show
+		@profile = Profile.find(params[:id])
 	end
 
 	def create
@@ -52,7 +56,6 @@ class ProfilesController < ApplicationController
 	def profile_params
 		params.require(:profile).permit(
 			:avatar,
-			:name,
 			:skills,
 			:description,
 			:gender,
@@ -62,7 +65,7 @@ class ProfilesController < ApplicationController
 			:city,
 			:state,
 			:country,
-			:birthday,
+			:birthdate,
 			:contact_email,
 			:language,
 			:work,

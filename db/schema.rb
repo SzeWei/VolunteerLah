@@ -10,12 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
-ActiveRecord::Schema.define(version: 20161209154808) do
+ActiveRecord::Schema.define(version: 20161210061950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
-
 
   create_table "event_details", force: :cascade do |t|
     t.string   "venue_title"
@@ -56,6 +54,7 @@ ActiveRecord::Schema.define(version: 20161209154808) do
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
     t.index ["user_id"], name: "index_events_on_user_id", using: :btree
+  end
 
   create_table "organisation_profiles", force: :cascade do |t|
     t.string   "name"
@@ -99,7 +98,6 @@ ActiveRecord::Schema.define(version: 20161209154808) do
     t.datetime "updated_at",                          null: false
     t.string   "avatar"
     t.index ["user_id"], name: "index_profiles_on_user_id", using: :btree
-
   end
 
   create_table "users", force: :cascade do |t|
@@ -116,7 +114,6 @@ ActiveRecord::Schema.define(version: 20161209154808) do
     t.datetime "created_at",                                    null: false
     t.datetime "updated_at",                                    null: false
     t.integer  "role",                   default: 2
-    t.string   "username"
     t.string   "provider"
     t.string   "uid"
     t.string   "name",                   default: "New Member"
@@ -124,13 +121,10 @@ ActiveRecord::Schema.define(version: 20161209154808) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   end
 
-
   add_foreign_key "event_details", "events"
   add_foreign_key "event_volunteers", "events"
   add_foreign_key "event_volunteers", "users"
   add_foreign_key "events", "users"
-
   add_foreign_key "organisation_profiles", "users"
   add_foreign_key "profiles", "users"
-
 end

@@ -14,12 +14,12 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     set_event
+    @event_details = @event.event_details.all
   end
 
   # GET /events/new
   def new
-    @user = current_user
-    @event = @user.events.new
+    @event = current_user.events.new
   end
 
   # GET /events/1/edit
@@ -30,14 +30,18 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
-
     respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
+      if current_user.organisation? || current_user.admin?
+        @event = Event.new(event_params)
+          if @event.save
+            format.html { redirect_to @event, notice: 'Event was successfully created.' }
+            format.json { render :show, status: :created, location: @event }
+          else
+            format.html { render :new }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
+          end
       else
-        format.html { render :new }
+        format.html { render :edit, notice: 'You must be an organisation to post an event.' }
         format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
@@ -46,16 +50,21 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    if current_user = @event.user || current_user.admin?
-      respond_to do |format|
-        if @event.update(event_params)
-          format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-          format.json { render :show, status: :ok, location: @event }
-        else
-          format.html { render :edit }
-          format.json { render json: @event.errors, status: :unprocessable_entity }
+    if current_user.organisation? || current_user.admin?
+      if current_user = @event.user || current_user.admin?
+        respond_to do |format|
+          if @event.update(event_params)
+            format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+            format.json { render :show, status: :ok, location: @event }
+          else
+            format.html { render :edit }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
+          end
         end
       end
+    else
+      format.html { render :edit, notice: 'You must be an organisation to post an event.' }
+      format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
 
@@ -79,6 +88,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :start_date, :end_date, :category, :user, :target_space, :event_photos, :status)
+      params.require(:event).permit(:title, :description, :start_date, :end_date, :category, :user, :target_space, {event_photos: []}, :status)
     end
 end

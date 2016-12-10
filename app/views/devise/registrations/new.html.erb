@@ -2,10 +2,19 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
+  <div class="field">
+    <%= f.label "Choose an account type" %><br />
+    <%= f.select :role, User.roles.except("admin").keys.to_a.map {|r| [r.humanize, r]} %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </div>
 
   <div class="field">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email  %>
   </div>
 
   <div class="field">
