@@ -31,21 +31,20 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    if current_user.organisation? || current_user.admin?
-      @event = Event.new(event_params)
-
-      respond_to do |format|
-        if @event.save
-          format.html { redirect_to @event, notice: 'Event was successfully created.' }
-          format.json { render :show, status: :created, location: @event }
-        else
-          format.html { render :new }
-          format.json { render json: @event.errors, status: :unprocessable_entity }
-        end
+    respond_to do |format|
+      if current_user.organisation? || current_user.admin?
+        @event = Event.new(event_params)
+          if @event.save
+            format.html { redirect_to @event, notice: 'Event was successfully created.' }
+            format.json { render :show, status: :created, location: @event }
+          else
+            format.html { render :new }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
+          end
+      else
+        format.html { render :edit, notice: 'You must be an organisation to post an event.' }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
-    else
-      format.html { render :edit, notice: 'You must be an organisation to post an event.' }
-      format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
 
