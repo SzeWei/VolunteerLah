@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :events
   has_many :event_volunteers
   validates :email, presence: true
+  validates :username, presence: true
 
   enum :role => [:admin, :organisation, :volunteer]
 
