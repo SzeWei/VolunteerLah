@@ -14,6 +14,7 @@ class EventsController < ApplicationController
   # GET /events/1.json
   def show
     set_event
+    @event_details = @event.event_details.all
   end
 
   # GET /events/new
