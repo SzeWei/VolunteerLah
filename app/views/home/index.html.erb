@@ -1,6 +1,5 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 //EN">
 <html lang="en">
-
 <head>
 
     <meta charset="utf-8">
@@ -41,19 +40,22 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Start Bootstrap</a>
+                <a class="navbar-brand" href="#">Volunteer Lah!</a>
             </div>
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li>
-                        <a href="#">About</a>
+                        <a href="">Home</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="#">Events</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="#">About Us</a>
+                    </li>
+                    <li>
+                        <a href="#">Login/Register</a>
                     </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right" align="right">
@@ -76,7 +78,7 @@
 
     
 
-        <form class="form-group form-inline" action="" method="get">
+        <form class="form-group form-inline" align="center" action="" method="get">
             <fieldset>
 
                 <!-- PgSearch -->
@@ -116,23 +118,25 @@
         
 
         <hr>
-
+        
         <div class="row">
+           <%=link_to  do %>
             <div class="col-sm-4">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-                <h2>Marketing Box #1</h2>
+                <%= image_tag("poor-1775239_1280.jpg", class: "img-responsive img-thumbnail img-circle", )  %>
+                <h2>Homeless</h2>
                 <p>These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.</p>
             </div>
             <div class="col-sm-4">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-                <h2>Marketing Box #2</h2>
+                <%= image_tag("mrs-1684465_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
+                <h2>Elderly</h2>
                 <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
             </div>
             <div class="col-sm-4">
-                <img class="img-circle img-responsive img-center" src="http://placehold.it/300x300" alt="">
-                <h2>Marketing Box #3</h2>
+                <%= image_tag("dog-1705124_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
+                <h2>Animals</h2>
                 <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
             </div>
+            <% end %>
         </div>
         <!-- /.row -->
             <div class="form-group">
@@ -149,12 +153,9 @@
 
         <div class="row">
             <div class="col-sm-8">
-                <h2>What We Do</h2>
+                <h2>About Us</h2>
                 <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
-                <p>
-                    <a class="btn btn-default btn-lg" href="#">Call to Action &raquo;</a>
-                </p>
             </div>
 
               <!-- Button -->
@@ -171,7 +172,7 @@
                 <address>
                     <abbr title="Phone">P:</abbr>(123) 456-7890
                     <br>
-                    <abbr title="Email">E:</abbr> <a href="mailto:#">name@example.com</a>
+                    <abbr title="Email">E:</abbr> <a href="mailto:#">info@vollah.com</a>
                 </address>
             </div>
         </div>
@@ -181,7 +182,7 @@
         <footer>
             <div class="row">
                 <div class="col-lg-12">
-                    <p>Copyright &copy; Your Website 2014</p>
+                    <p>Copyright &copy; Volunteer Lah 2016</p>
                 </div>
             </div>
             <!-- /.row -->
