@@ -1,0 +1,2 @@
+json.extract! organisation_profile, :id, :name, :field_or_industry, :website, :org_description, :org_size, :language, :phone, :fax, :email, :contact_person, :address, :postal_code, :city, :state, :user_id, :created_at, :updated_at
+json.url organisation_profile_url(organisation_profile, format: :json)
