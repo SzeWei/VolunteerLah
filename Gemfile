@@ -84,3 +84,7 @@ gem 'pg_search'
 # For queuing email
 gem 'sidekiq'
 
+# For javascript
+gem 'gon'
+gem 'rabl-rails'
+
