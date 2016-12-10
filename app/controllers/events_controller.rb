@@ -31,32 +31,42 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
+    if current_user.organisation? || current_user.admin?
+      @event = Event.new(event_params)
 
-    respond_to do |format|
-      if @event.save
-        format.html { redirect_to @event, notice: 'Event was successfully created.' }
-        format.json { render :show, status: :created, location: @event }
-      else
-        format.html { render :new }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @event.save
+          format.html { redirect_to @event, notice: 'Event was successfully created.' }
+          format.json { render :show, status: :created, location: @event }
+        else
+          format.html { render :new }
+          format.json { render json: @event.errors, status: :unprocessable_entity }
+        end
       end
+    else
+      format.html { render :edit, notice: 'You must be an organisation to post an event.' }
+      format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
 
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    if current_user = @event.user || current_user.admin?
-      respond_to do |format|
-        if @event.update(event_params)
-          format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-          format.json { render :show, status: :ok, location: @event }
-        else
-          format.html { render :edit }
-          format.json { render json: @event.errors, status: :unprocessable_entity }
+    if current_user.organisation? || current_user.admin?
+      if current_user = @event.user || current_user.admin?
+        respond_to do |format|
+          if @event.update(event_params)
+            format.html { redirect_to @event, notice: 'Event was successfully updated.' }
+            format.json { render :show, status: :ok, location: @event }
+          else
+            format.html { render :edit }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
+          end
         end
       end
+    else
+      format.html { render :edit, notice: 'You must be an organisation to post an event.' }
+      format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
 

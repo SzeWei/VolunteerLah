@@ -47,6 +47,7 @@ class EventVolunteersController < ApplicationController
   # PATCH/PUT /event_volunteers/1.json
   def update
     parent_event
+    @event_volunteer = EventVolunteer.find_by(params.require(:event_volunteer).permit(:id))
     if current_user == @event.user || user.admin? 
       respond_to do |format|
         if @event_volunteer.update(event_volunteer_params)
