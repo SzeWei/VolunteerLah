@@ -15,7 +15,8 @@ class OrganisationProfilesController < ApplicationController
 
   # GET /organisation_profiles/new
   def new
-    @organisation_profile = current_user.build_organisation_profile
+    @user = current_user
+    @organisation_profile = @user.build_organisation_profile
   end
 
   # GET /organisation_profiles/1/edit
