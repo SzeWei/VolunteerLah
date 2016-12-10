@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Organisation Profiles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Field or industry</th>
+      <th>Website</th>
+      <th>Org description</th>
+      <th>Org size</th>
+      <th>Language</th>
+      <th>Phone</th>
+      <th>Fax</th>
+      <th>Email</th>
+      <th>Contact person</th>
+      <th>Address</th>
+      <th>Postal code</th>
+      <th>City</th>
+      <th>State</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @organisation_profiles.each do |organisation_profile| %>
+      <tr>
+        <td><%= organisation_profile.name %></td>
+        <td><%= organisation_profile.field_or_industry %></td>
+        <td><%= organisation_profile.website %></td>
+        <td><%= organisation_profile.org_description %></td>
+        <td><%= organisation_profile.org_size %></td>
+        <td><%= organisation_profile.language %></td>
+        <td><%= organisation_profile.phone %></td>
+        <td><%= organisation_profile.fax %></td>
+        <td><%= organisation_profile.email %></td>
+        <td><%= organisation_profile.contact_person %></td>
+        <td><%= organisation_profile.address %></td>
+        <td><%= organisation_profile.postal_code %></td>
+        <td><%= organisation_profile.city %></td>
+        <td><%= organisation_profile.state %></td>
+        <td><%= organisation_profile.user %></td>
+        <td><%= link_to 'Show', organisation_profile %></td>
+        <td><%= link_to 'Edit', edit_organisation_profile_path(organisation_profile) %></td>
+        <td><%= link_to 'Destroy', organisation_profile, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Organisation Profile', new_organisation_profile_path %>

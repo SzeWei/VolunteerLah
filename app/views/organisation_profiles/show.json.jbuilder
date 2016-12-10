@@ -1,0 +1,1 @@
+json.partial! "organisation_profiles/organisation_profile", organisation_profile: @organisation_profile

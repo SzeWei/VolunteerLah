@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Event Details</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Venue title</th>
+      <th>Street address</th>
+      <th>Postal code</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Contact num</th>
+      <th>Event</th>
+      <th>Day time</th>
+      <th>Longitude</th>
+      <th>Latitude</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @event_details.each do |event_detail| %>
+      <tr>
+        <td><%= event_detail.venue_title %></td>
+        <td><%= event_detail.street_address %></td>
+        <td><%= event_detail.postal_code %></td>
+        <td><%= event_detail.city %></td>
+        <td><%= event_detail.state %></td>
+        <td><%= event_detail.contact_num %></td>
+        <td><%= event_detail.event %></td>
+        <td><%= event_detail.day_time %></td>
+        <td><%= event_detail.longitude %></td>
+        <td><%= event_detail.latitude %></td>
+        <td><%= link_to 'Show', event_detail %></td>
+        <td><%= link_to 'Edit', edit_event_detail_path(event_detail) %></td>
+        <td><%= link_to 'Destroy', event_detail, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Event Detail', new_event_detail_path %>
