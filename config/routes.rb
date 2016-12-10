@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :organisation_profiles
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
 
-  resources :searches
+  resources :events
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: "home#index"
 
