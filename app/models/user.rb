@@ -12,12 +12,21 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
 
   enum :role => [:admin, :organisation, :volunteer]
+  after_create :build_relevant_profile
 
   def self.new_with_session(params, session)
     super.tap do |user|
       if data = session["devise.facebook_data"] && session["devise.facebook_data"]["extra"]["raw_info"]
         user.email = data["email"] if user.email.blank?
       end
+    end
+  end
+
+  def build_relevant_profile
+    if self.volunteer?
+      self.build_profile
+    elsif self.organisation?
+      self.build_organisation_profile
     end
   end
 end
