@@ -38,7 +38,7 @@
 
   <% # note to self: http://apidock.com/rails/ActionView/Helpers/FormBuilder/fields_for %>
   <% if current_user.volunteer? %>
-    <%= fields_for :profile do |u| %>
+    <%= f.fields_for :profile do |u| %>
       <div class="field">
         <%= u.label :skills %><br />
         <%= u.text_area :skills %>
@@ -188,7 +188,8 @@
 
       <div class="field">
         <%= u.label :user_id %><br />
-        <%= u.text_field :user_id %>
+        <%= u.hidden_field :user_id %>
+        <% # This should be hidden field%>
       </div>
 
       <div class="field">
