@@ -33,6 +33,7 @@ class EventsController < ApplicationController
   # GET /events/new
   def new
     @event = current_user.events.new
+    @event.build_event_detail
   end
 
   # GET /events/1/edit
