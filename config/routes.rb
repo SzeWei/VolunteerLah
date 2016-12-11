@@ -4,8 +4,8 @@ Rails.application.routes.draw do
   # resources :event_details
   resources :events
 
-  resources :profiles
-  resources :organisation_profiles
+  # resources :profiles
+  # resources :organisation_profiles
   devise_for :users, :controllers => { registrations: "users/registrations", omniauth_callbacks: "users/omniauth_callbacks" }
   resources :users, only: [:show, :destroy]
 
