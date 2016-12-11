@@ -21,7 +21,7 @@ class EventsController < ApplicationController
     @events = @events.search(query) if query.present?
     @events = @events.status_open(current_user_id)
     @events = @events.near(latitude,longitude) if latitude.present? && longitude.present?
-    @events = @events.reorder("created_at DESC").paginate(:page => params[:page])
+    @events = @events.includes(:event_detail).reorder("created_at DESC").paginate(:page => params[:page])
   end
 
   # GET /events/1
@@ -49,14 +49,14 @@ class EventsController < ApplicationController
         @event = Event.new(event_params)
           if @event.save
             format.html { redirect_to @event, notice: 'Event was successfully created.' }
-            format.json { render :show, status: :created, location: @event }
+            # format.json { render :show, status: :created, location: @event }
           else
             format.html { render :new }
-            format.json { render json: @event.errors, status: :unprocessable_entity }
+            # format.json { render json: @event.errors, status: :unprocessable_entity }
           end
       else
         format.html { render :edit, notice: 'You must be an organisation to post an event.' }
-        format.json { render json: @event.errors, status: :unprocessable_entity }
+        # format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,27 +69,27 @@ class EventsController < ApplicationController
         respond_to do |format|
           if @event.update(event_params)
             format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-            format.json { render :show, status: :ok, location: @event }
+            # format.json { render :show, status: :ok, location: @event }
           else
             format.html { render :edit }
-            format.json { render json: @event.errors, status: :unprocessable_entity }
+            # format.json { render json: @event.errors, status: :unprocessable_entity }
           end
         end
       end
     else
       format.html { render :edit, notice: 'You must be an organisation to post an event.' }
-      format.json { render json: @event.errors, status: :unprocessable_entity }
+      # format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
 
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    if current_user == @event.user || current_user.admin?
+    if current_user.admin?
       @event.destroy
       respond_to do |format|
         format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
-        format.json { head :no_content }
+        # format.json { head :no_content }
       end
     end
   end

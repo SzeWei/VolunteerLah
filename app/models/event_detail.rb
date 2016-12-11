@@ -3,7 +3,6 @@ class EventDetail < ApplicationRecord
   reverse_geocoded_by :latitude, :longitude
 
   def full_address
-    byebug
     query = Geocoder.search("#{self.latitude},#{self.longitude}").first
     if query.nil?
       'not valid'
