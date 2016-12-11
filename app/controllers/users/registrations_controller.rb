@@ -36,16 +36,23 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
+  protected
+  def after_sign_up_path_for(resource)
+    edit_user_registration_path
+  end
+
+
   private
   # If you have extra params to permit, append them to the sanitizer.
   def sign_up_params
-      params.require(:user).permit(:role, :name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:role, :name, :email, :password, :password_confirmation)
   end
 
   # If you have extra params to permit, append them to the sanitizer.
   def account_update_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation, :current_password)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :current_password, 
+      :organisation_profile_attributes => [:id, :name, :field_or_industry, :website, :org_description, :org_size, :language, :phone, :fax, :email, :contact_person, :address, :postal_code, :city, :state, :user_id, :org_photos], 
+      :profile_attributes => [:id, :skills, :description, :gender, :phone, :street_address, :postal_code, :city, :state, :country, :birthdate, :contact_email, :language, :work, :education, :avatar] )
   end
 
   # The path used after sign up.

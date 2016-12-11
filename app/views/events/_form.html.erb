@@ -34,14 +34,14 @@
   </div>
 
   <div class="field">
-    <%= f.label :category %>
-    <%= f.number_field :category %>
+    <%= f.label "Choose a category" %><br />
+    <%= f.select :category, Event.categories.keys.to_a.map {|r| [r.humanize, r]} %>
   </div>
 
-  <div class="field">
-    <%= f.label :user %>
-    <%= f.text_field :user %>
-  </div>
+ <!--  <div class="field">
+    < %= f.label :user %>
+    < %= f.hidden_field :user %>
+  </div> -->
 
   <div class="field">
     <%= f.label :target_space %>
@@ -49,15 +49,61 @@
   </div>
 
   <div class="field">
-    <%= f.label :status %>
-    <%= f.number_field :status %>
-  </div>
-
-  <div class="field">
     <%= f.label :event_photos %>
     <%= f.file_field :event_photos, multiple: true %>
   </div>
 
+  <%= f.fields_for :event_detail do |u| %>
+    <div class="field">
+      <%= u.label :venue_title %>
+      <%= u.text_field :venue_title %>
+    </div>
+
+    <div class="field">
+      <%= u.label :street_address %>
+      <%= u.text_field :street_address %>
+    </div>
+
+    <div class="field">
+      <%= u.label :postal_code %>
+      <%= u.text_field :postal_code %>
+    </div>
+
+    <div class="field">
+      <%= u.label :city %>
+      <%= u.text_field :city %>
+    </div>
+
+    <div class="field">
+      <%= u.label :state %>
+      <%= u.text_field :state %>
+    </div>
+
+    <div class="field">
+      <%= u.label :contact_num %>
+      <%= u.text_field :contact_num %>
+    </div>
+
+    <div class="field">
+      <%= u.label :event_id %>
+      <%= u.hidden_field :event_id %>
+    </div>
+
+    <div class="field">
+      <%= u.label :day_time %>
+      <%= u.text_field :day_time %>
+    </div>
+
+    <div class="field">
+      <%= u.label :latitude %>
+      <%= u.text_field :latitude %>
+    </div>
+
+    <div class="field">
+      <%= u.label :longitude %>
+      <%= u.text_field :longitude %>
+    </div>
+  <% end %>
 
   <div class="actions">
     <%= f.submit %>
