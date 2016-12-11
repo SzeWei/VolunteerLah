@@ -11,7 +11,7 @@ class Event < ApplicationRecord
   validates :start_date, presence: true
   validates :end_date, presence: true, date: { after_or_equal_to:  :start_date}
   validates :category, presence: true
-  scope :category,    -> (category) { where category: category }
+  scope :the_category,    -> (category) { where category: category }
   scope :city,        -> (city) { joins( :event_detail ).where( :event_details => { :city => city } ) }
   # status open will limit the result to be opening status only,
   # but still allowed cancelled result to show when user are requested for the event

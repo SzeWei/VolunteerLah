@@ -14,7 +14,7 @@ class EventsController < ApplicationController
     current_user_id = current_user.id || ''
 
     @events = Event
-    @events = @events.category(category) if category.present?
+    @events = @events.the_category(category) if category.present?
     @events = @events.city(city) if city.present?
     @events = @events.start_date(start_date) if start_date.present?
     @events = @events.end_date(end_date) if end_date.present?
@@ -27,7 +27,7 @@ class EventsController < ApplicationController
   # GET /events/1
   # GET /events/1.json
   def show
-    @event_details = @event.event_details.all
+    @event_details = @event.event_detail
   end
 
   # GET /events/new
@@ -65,7 +65,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     if current_user.organisation? || current_user.admin?
-      if current_user = @event.user || current_user.admin?
+      if current_user == @event.user || current_user.admin?
         respond_to do |format|
           if @event.update(event_params)
             format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -85,7 +85,7 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
-    if current_user = @event.user || current_user.admin?
+    if current_user == @event.user || current_user.admin?
       @event.destroy
       respond_to do |format|
         format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
@@ -102,6 +102,7 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:title, :description, :start_date, :end_date, :category, :user, :target_space, {event_photos: []}, :status)
+      params.require(:event).permit(:title, :description, :start_date, :end_date, :category, :user, :target_space, {event_photos: []}, :status, 
+        :event_detail_attributes => [:id, :venue_title, :street_address, :postal_code, :city, :state, :contact_num, :event_id, :day_time, :longitude, :latitude])
     end
 end
