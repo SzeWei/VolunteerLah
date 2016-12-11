@@ -13,15 +13,15 @@ class EventsController < ApplicationController
     longitude = params[:longitude].to_f || ''
     current_user_id = current_user.id || ''
 
-    @index = Event
-    @index = @index.category(category) if category.present?
-    @index = @index.city(city) if city.present?
-    @index = @index.start_date(start_date) if start_date.present?
-    @index = @index.end_date(end_date) if end_date.present?
-    @index = @index.search(query) if query.present?
-    @index = @index.status_open(current_user_id)
-    @index = @index.near(latitude,longitude) if latitude.present? && longitude.present?
-    @index = @index.reorder("created_at DESC").paginate(:page => params[:page])
+    @events = Event
+    @events = @events.category(category) if category.present?
+    @events = @events.city(city) if city.present?
+    @events = @events.start_date(start_date) if start_date.present?
+    @events = @events.end_date(end_date) if end_date.present?
+    @events = @events.search(query) if query.present?
+    @events = @events.status_open(current_user_id)
+    @events = @events.near(latitude,longitude) if latitude.present? && longitude.present?
+    @events = @events.reorder("created_at DESC").paginate(:page => params[:page])
   end
 
   # GET /events/1
