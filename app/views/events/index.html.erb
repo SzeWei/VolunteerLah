@@ -14,6 +14,7 @@
       <th>Target space</th>
       <th>Event photos</th>
       <th>Status</th>
+      <th>Test detail (latitude)</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -30,6 +31,7 @@
         <td><%= event.target_space %></td>
         <td><%= event.event_photos %></td>
         <td><%= event.status %></td>
+        <td><%= event.event_detail.latitude %></td>
         <td><%= link_to 'Show', event %></td>
         <td><%= link_to 'Edit', edit_event_path(event) %></td>
         <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>

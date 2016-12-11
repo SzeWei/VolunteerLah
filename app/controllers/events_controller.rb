@@ -1,19 +1,32 @@
 class EventsController < ApplicationController
-  #######################
-  # => have not start doing, these code are auto-generated
-  #######################
-  # before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   # GET /events
   # GET /events.json
   def index
-    @events = Event.order("created_at DESC").paginate(:page => params[:page])
+    category = params[:category] || ''
+    city = params[:city] || ''
+    start_date = params[:start_date] || ''
+    end_date = params[:end_date] || ''
+    query = params[:query] || ''
+    latitude = params[:latitude].to_f || ''
+    longitude = params[:longitude].to_f || ''
+    current_user_id = current_user.id || ''
+
+    @index = Event
+    @index = @index.category(category) if category.present?
+    @index = @index.city(city) if city.present?
+    @index = @index.start_date(start_date) if start_date.present?
+    @index = @index.end_date(end_date) if end_date.present?
+    @index = @index.search(query) if query.present?
+    @index = @index.status_open(current_user_id)
+    @index = @index.near(latitude,longitude) if latitude.present? && longitude.present?
+    @index = @index.reorder("created_at DESC").paginate(:page => params[:page])
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
-    set_event
     @event_details = @event.event_details.all
   end
 
