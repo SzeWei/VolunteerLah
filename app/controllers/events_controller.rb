@@ -82,6 +82,22 @@ class EventsController < ApplicationController
     end
   end
 
+  def get_near
+    latitude = params[:latitude].to_f || ''
+    longitude = params[:longitude].to_f || ''
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      unless latitude.present? && longitude.present?
+        # 400 = Bad Request
+        gon.status = { code: 400, error: 'Invalid latitude or longitude'}
+        format.javascript
+      end
+      gon.status = { code: 200 }
+      gon.events = Event.near(latitude,longitude).includes(:event_detail).where(status: :active).all
+      format.javascript
+    end
+  end
+
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
