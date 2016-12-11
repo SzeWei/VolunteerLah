@@ -1,0 +1,12 @@
+<% if @user.volunteer? %>
+  <p> test call volunteer profile's attribute </p>
+  <p>Education: <%= @user.profile.education %></p>
+<% elsif @user.organisation? %>
+  <p> test call organisation profile's attribute </p>
+  <p>Website: <%= @user.organisation_profile.website %></p>
+<% else %>
+  <p> You have no permission to view admin profile.</p>
+  <% if @user.admin? %>
+    <p> oh you're admin? actually this page does not exist... so... eh.. heh heh heh... (*awkward)... </p>
+  <% end %>
+<% end %>
