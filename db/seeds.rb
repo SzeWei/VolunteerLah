@@ -14,7 +14,7 @@ users = num.map {|n| "user" + n.to_s}
 emails = users.map {|e| e + "@mail.com" }
 
 # Create user1 - user20
-num.each{ |n| User.create(email: emails[n], password: "123456", name: users[n]) }
+num.each{ |n| User.create(email: emails[n - 1], password: "123456", name: users[n - 1]) }
 
 
 # Events
