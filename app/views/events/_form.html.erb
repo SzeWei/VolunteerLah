@@ -52,6 +52,12 @@
     <%= f.label :event_photos %>
     <%= f.file_field :event_photos, multiple: true %>
   </div>
+  <p>
+    <label>
+      <%= f.check_box :remove_event_photos %>
+      Remove photos
+    </label>
+  </p>
 
   <%= f.fields_for :event_detail do |u| %>
     <div class="field">

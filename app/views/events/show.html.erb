@@ -37,7 +37,7 @@
 
 <p>
   <strong>Event photos:</strong>
-  <%= @event.event_photos %>
+  <%= image_tag @event.event_photos[0].url if @event.event_photos.present? %>
 </p>
 
 <p>

@@ -29,7 +29,7 @@
         <td><%= event.category %></td>
         <td><%= event.user %></td>
         <td><%= event.target_space %></td>
-        <td><%= event.event_photos %></td>
+        <td><%= image_tag event.event_photos[0].thumb.url if event.event_photos.present? %></td>
         <td><%= event.status %></td>
         <td><%= event.event_detail.latitude %></td>
         <td><%= link_to 'Show', event %></td>
