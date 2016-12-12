@@ -30,23 +30,25 @@ class EventVolunteersController < ApplicationController
   def create
     # parent_event
     @event_volunteer = EventVolunteer.new(event_volunteer_params)
+    @user = current_user
 
-    if user_signed_in? & user.volunteer? 
-      respond_to do |format|
-        unless @event.open?
+    respond_to do |format|
+      if user_signed_in? & @user.volunteer?
+        if !@event.open?
           gon.response = false
-          format.javascript
-        elsif @event_volunteer.save
-          # format.html { redirect_to @event_volunteer, notice: 'Event volunteer was successfully created.' }
-          # format.json { render :show, status: :created, location: @event_volunteer }
-          gon.response = true
-          format.javascript
+          format.js
         else
-          # format.html { render :new }
-          # format.json { render json: @event_volunteer.errors, status: :unprocessable_entity }
-          gon.response = false
-          format.javascript
+          if @event_volunteer.save
+            gon.response = true
+            format.js
+          else
+            gon.response = false
+            format.js
+          end
         end
+      else
+        format.html { redirect_to event_path(@event), notice: 'You must have a volunteer account.' }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -84,16 +86,12 @@ class EventVolunteersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def parent_event
-      @event = Event.find(params[:id])
-    end
-
-    def parent_event_nested
       @event = Event.find(params[:event_id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_volunteer_params
-      params.require(:event_volunteer).permit(:user_id, :event_id)
+      params.require(:event_volunteer).permit(:user_id, :event_id, :name, :phone, :email, :status)
     end
 
     def event_volunteer_ids

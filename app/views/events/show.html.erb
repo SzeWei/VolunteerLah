@@ -46,7 +46,11 @@
 </p>
 
 <div class="event-details">
-  <%= render partial:"event_details/show" %>
+  <%= render "event_details/show" %>
+</div>
+
+<div class="volunteer">
+  <%= render partial:"event_volunteers/new", remote: true %>
 </div>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |

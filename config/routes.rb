@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 # modal#Event
-  resources :event_volunteers, only: [:create, :update]
   # resources :event_details
-  resources :events
+  resources :events do 
+  	resources :event_volunteers, only: [:create, :update]
+  end
 
   # resources :profiles
   # resources :organisation_profiles
