@@ -45,9 +45,13 @@
   <%= @event.status %>
 </p>
 
-<p>
-  <strong>Test getting detail:</strong>
-  <%= @event.event_detail.full_address %>
+<div class="event-details">
+  <%= render "event_details/show" %>
+</div>
+
+<div class="volunteer">
+  <%= render partial:"event_volunteers/new", remote: true %>
+</div>
 
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

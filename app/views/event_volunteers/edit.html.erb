@@ -1,6 +1,6 @@
 <h1>Editing Event Volunteer</h1>
 
-<%= render 'form', event_volunteer: @event_volunteer %>
+<%= render('event_volunteers/form', event_volunteer: @event_volunteer, url: event_event_volunteer_path(@event, @event_volunteer)) %>
 
 <%= link_to 'Show', @event_volunteer %> |
 <%= link_to 'Back', event_volunteers_path %>
