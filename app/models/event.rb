@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_detail
   has_many :event_volunteers
   mount_uploaders :event_photos, EventPhotosUploader
+  include Filterable
 
   validates :title, presence: true
   validates :start_date, presence: true
@@ -16,7 +17,7 @@ class Event < ApplicationRecord
   # status open will limit the result to be opening status only,
   # but still allowed cancelled result to show when user are requested for the event
   scope :status_open, -> (uid) { left_joins(:event_volunteers).where(["(events.status = ? OR event_volunteers.user_id = ? )", 0, uid ]) }
-  scope :near, -> (latitude, longitude) { where('id in (?)', EventDetail.near([latitude,longitude], 5, :units => :km).pluck(:event_id)) }
+  scope :near, -> (latitude, longitude) { where('events.id in (?)', EventDetail.near([latitude,longitude], 5, :units => :km, :order => false).pluck(:event_id)) }
   scope :start_date,  -> (start_date) { where("start_date > ? AND end_date > ?", start_date, Date.yesterday) }
   scope :end_date,    -> (end_date) { where("start_date < ? AND end_date > ?", end_date, Date.yesterday) }
 

@@ -48,8 +48,8 @@ def generate_event(user)
 		state: FFaker::AddressBR.state,
 		contact_num: rand(1111111..9999999).to_s,
 		day_time: new_event.start_date.strftime("%A") + ", 9am - 12pm",
-		longitude: rand(-90.000000000...90.000000000),
-		latitude: rand(-180.000000000...180.000000000)
+		longitude: 101.68685 + rand(-0.300000000...0.300000000),
+		latitude: 3.139003 + rand(-0.300000000...0.300000000)
 		)
 end
 

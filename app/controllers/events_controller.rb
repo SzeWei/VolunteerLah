@@ -1,27 +1,33 @@
 class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
   # GET /events
   # GET /events.json
   def index
-    category = params[:category] || ''
-    city = params[:city] || ''
-    start_date = params[:start_date] || ''
-    end_date = params[:end_date] || ''
-    query = params[:query] || ''
-    latitude = params[:latitude].to_f || ''
-    longitude = params[:longitude].to_f || ''
-    current_user_id = current_user.id || ''
+    # category = params[:category] || ''
+    # city = params[:city] || ''
+    # start_date = params[:start_date] || ''
+    # end_date = params[:end_date] || ''
+    # query = params[:query] || ''
+    # latitude = params[:latitude].to_f || ''
+    # longitude = params[:longitude].to_f || ''
+    # current_user_id = current_user.id || ''
 
-    @events = Event
-    @events = @events.the_category(category) if category.present?
-    @events = @events.city(city) if city.present?
-    @events = @events.start_date(start_date) if start_date.present?
-    @events = @events.end_date(end_date) if end_date.present?
-    @events = @events.search(query) if query.present?
-    @events = @events.status_open(current_user_id)
-    @events = @events.near(latitude,longitude) if latitude.present? && longitude.present?
-    @events = @events.includes(:event_detail).reorder("created_at DESC").paginate(:page => params[:page])
+    # @events = Event
+    # @events = @events.the_category(category) if category.present?
+    # @events = @events.city(city) if city.present?
+    # @events = @events.start_date(start_date) if start_date.present?
+    # @events = @events.end_date(end_date) if end_date.present?
+    # @events = @events.search(query) if query.present?
+    # @events = @events.status_open(current_user_id)
+    # @events = @events.near(latitude,longitude) if latitude.present? && longitude.present?
+    # @events = @events.includes(:event_detail).reorder("created_at DESC").paginate(:page => params[:page])
+
+    # Filters Events according to given parameters
+    filter_params = params.slice(:status_open, :category, :city, :start_date, :end_date, :search, :near)
+    # Calls method Event#filter from "app/models/concerns/filterable.rb"
+    @events = Event.filter(filter_params)
+    # Paginate Events index
+    @events = Event.order("created_at DESC").paginate(page: params[:page], per_page: 30)
   end
 
   # GET /events/1
@@ -52,11 +58,11 @@ class EventsController < ApplicationController
             # format.json { render :show, status: :created, location: @event }
           else
             format.html { render :new }
-            # format.json { render json: @event.errors, status: :unprocessable_entity }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
           end
       else
         format.html { redirect_to root_path, notice: 'You must be an organisation to post an event.' }
-        # format.json { render json: @event.errors, status: :unprocessable_entity }
+        format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -69,16 +75,16 @@ class EventsController < ApplicationController
         respond_to do |format|
           if @event.update(event_params)
             format.html { redirect_to @event, notice: 'Event was successfully updated.' }
-            # format.json { render :show, status: :ok, location: @event }
+            format.json { render :show, status: :ok, location: @event }
           else
             format.html { render :edit }
-            # format.json { render json: @event.errors, status: :unprocessable_entity }
+            format.json { render json: @event.errors, status: :unprocessable_entity }
           end
         end
       end
     else
       format.html { render :edit, notice: 'You must be an organisation to post an event.' }
-      # format.json { render json: @event.errors, status: :unprocessable_entity }
+      format.json { render json: @event.errors, status: :unprocessable_entity }
     end
   end
 
@@ -105,7 +111,7 @@ class EventsController < ApplicationController
       @event.destroy
       respond_to do |format|
         format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
-        # format.json { head :no_content }
+        format.json { head :no_content }
       end
     end
   end
