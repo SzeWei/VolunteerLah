@@ -88,3 +88,6 @@ gem 'sidekiq'
 gem 'gon'
 gem 'rabl-rails'
 
+# Seed 
+gem 'ffaker'
+

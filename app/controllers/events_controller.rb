@@ -55,7 +55,7 @@ class EventsController < ApplicationController
             # format.json { render json: @event.errors, status: :unprocessable_entity }
           end
       else
-        format.html { render :edit, notice: 'You must be an organisation to post an event.' }
+        format.html { redirect_to root_path, notice: 'You must be an organisation to post an event.' }
         # format.json { render json: @event.errors, status: :unprocessable_entity }
       end
     end
