@@ -14,6 +14,7 @@ CarrierWave.configure do |config|
     :aws_secret_access_key => ENV['S3_SECRET'],
     :region                => ENV['S3_REGION']
   }
+
  
   # For testing, upload files to local `tmp` folder.
   # if Rails.env.development?
