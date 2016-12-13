@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 # modal#Event
   # resources :event_details
+
+  get '/events/getnear', to: "events#getnear", as: 'get_near_event'
   resources :events do 
   	resources :event_volunteers, only: [:create, :update]
   end

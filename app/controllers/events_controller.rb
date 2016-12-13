@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  # before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
   # GET /events.json
   def index
@@ -23,7 +23,8 @@ class EventsController < ApplicationController
     # @events = @events.includes(:event_detail).reorder("created_at DESC").paginate(:page => params[:page])
 
     # Filters Events according to given parameters
-    filter_params = params.slice(:status_open, :category, :city, :start_date, :end_date, :search, :near)
+    filter_params = params.slice(:category, :city, :start_date, :end_date, :search, :near)
+    filter_params.merge(:status_open => current_user.id) if user_signed_in?
     # Calls method Event#filter from "app/models/concerns/filterable.rb"
     @events = Event.filter(filter_params)
     # Paginate Events index
@@ -73,7 +74,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     if current_user.organisation? || current_user.admin?
-      if current_user == @event.user || current_user.admin?
+      if ( current_user == @event.user || current_user.admin? ) && @event.open? 
         respond_to do |format|
           if @event.update(event_params)
             format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -90,19 +91,28 @@ class EventsController < ApplicationController
     end
   end
 
-  def get_near
-    latitude = params[:latitude].to_f || ''
-    longitude = params[:longitude].to_f || ''
+  def getnear
+    latitude = params[:latitude] || ''
+    longitude = params[:longitude] || ''
+    category = params[:category] || ''
+
     respond_to do |format|
-      format.html { redirect_to root_path }
-      unless latitude.present? && longitude.present?
+      unless latitude.present? && longitude.present? && category.present?
         # 400 = Bad Request
-        gon.status = { code: 400, error: 'Invalid latitude or longitude'}
-        format.javascript
+        format.html { redirect_to root_path }
+        @status = { code: 400, error: 'Invalid category, latitude or longitude'}
+        gon.status = @status
+        @event = nil
+        format.js
+        format.html
       end
-      gon.status = { code: 200 }
-      gon.events = Event.near(latitude,longitude).includes(:event_detail).where(status: :active).all
-      format.javascript
+      @status = { code: 200 }
+      @events = Event.where(category: category).near(latitude.to_f, longitude.to_f).includes(:event_detail).where(status: :open).where(['Event.end_date > ?', Date.today]).all
+      gon.status = @status
+      gon.events = @events
+
+      format.html
+      format.js
     end
   end
 
