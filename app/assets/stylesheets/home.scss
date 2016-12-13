@@ -1,3 +1,5 @@
+
+
 // Place all the styles related to the home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
@@ -8,20 +10,19 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
-body {
-    padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
-}
-
-/* Header Image Background - Change the URL below to your image path (example: ../images/background.jpg) */
-
 .business-header {
-    height: 400px;
-    background: url('http://placehold.it/1920x400') center center no-repeat scroll;
+	
+	height: 500px;
+    background: url('kid-674516.jpg') center center no-repeat scroll;
+   
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+
 }
+    
+
 
 /* Customize the text color and shadow color and to optimize text legibility. */
 
