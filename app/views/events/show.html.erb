@@ -1,57 +1,181 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @event.description %>
-</p>
-
-<p>
-  <strong>Start date:</strong>
-  <%= @event.start_date %>
-</p>
-
-<p>
-  <strong>End date:</strong>
-  <%= @event.end_date %>
-</p>
-
-<p>
-  <strong>Category:</strong>
-  <%= @event.category %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @event.user %>
-</p>
-
-<p>
-  <strong>Target space:</strong>
-  <%= @event.target_space %>
-</p>
-
-<p>
-  <strong>Event photos:</strong>
-  <%= image_tag @event.event_photos[0].url if @event.event_photos.present? %>
-</p>
-
-<p>
-  <strong>Status:</strong>
-  <%= @event.status %>
-</p>
-
-<div class="event-details">
-  <%= render "event_details/show" %>
+<!-- Header Carousel -->
+<header id="myCarousel" class="carousel slide">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+  </ol>
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <div class="fill"><img src="img/bg.jpg"></div>
+      <div class="carousel-caption">
+        <h2>Slide 1</h2>
+      </div>
+    </div>
+    <div class="item">
+      <div class="fill"><img src="img/callout.jpg"></div>
+      <div class="carousel-caption">
+        <h2>Slide 2</h2>
+      </div>
+    </div>
+    <div class="item">
+      <div class="fill"><img src="img/portfolio-4.jpg"></div>
+      <div class="carousel-caption">
+        <h2>Slide 3</h2>
+      </div>
+    </div>
+  </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+  <span class="icon-prev"></span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+  <span class="icon-next"></span>
+  </a>
+</header>
+<!-- Page Content -->
+<div class="container">
+  <div class="row">
+    <h1 class="page-header">
+      <%= @event.title %>
+    </h1>
+  </div>
+  <div class="col-md-6">
+    <div class="event-details">
+      <h2>Event Details</h2>
+      <p>Organization Name: <a href="<%= user_path(@organisation.user) %>"><%= @organisation.name %></a></p>
+      <p>Event type: <em><%= @event.category %></em></p>
+      <p>Date: <%= @event.start_date %> to <%= @event.end_date %></p>
+      <p>Time: <%= @event_detail.day_time %></p>
+      <p>Address:<%= @event_detail.street_address %>, <%= @event_detail.postal_code %>, <%= @event_detail.city %> <%= @event_detail.state %></p>
+      <p>Contact-Person: <%= @organisation.contact_person %></p>
+      <p>Contact Number: <%= @organisation.phone %></p>
+      <p>Email: <%= @organisation.email %></p>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="event-description">
+      <h2>Event Description</h2>
+      <p> <%= @event.description %></p>
+      <p>
+        <strong>Event photos:</strong>
+        <%= image_tag @event.event_photos[0].url if @event.event_photos.present? %>
+      </p>
+    </div>
+  </div>
+</div>
+</br>
+<!-- Map -->
+<div class="container">
+  <div class="col-lg-12">
+    <div class="row">
+      <div class="col-md-8">
+        <section id="contact" class="map">
+          <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+          <br />
+          <small>
+          <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+          </small>
+        </section>
+      </div>
+      
+      <div class="col-md-4">
+        <% if user_signed_in? && current_user.volunteer? %>
+          <div class="volunteer">
+            <%= render partial:"event_volunteers/new", remote: true %>
+          </div>
+        <% else %>
+            <%= link_to "Create New Event", new_event_path %> 
+        <% end %>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="volunteer">
-  <%= render partial:"event_volunteers/new", remote: true %>
-</div>
 
-<%= link_to 'Edit', edit_event_path(@event) %> |
-<%= link_to 'Back', events_path %>
+  <div class="container" style="<%= show_if_org_or_admin?(@event) %>">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            Registered Volunteers
+          </div>
+          <!-- /.panel-heading -->
+          <div class="panel-body">
+            <div class="table-responsive">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Contact Number</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Mark Jacob</td>
+                    <td>mark@jacob.com</td>
+                    <td>012-3456789</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Jacob Thornton</td>
+                    <td>jacob@thornton.com</td>
+                    <td>011-9876543</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Tom Larry</td>
+                    <td>tom@tom.com</td>
+                    <td>014-4567890</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!-- /.table-responsive -->
+          </div>
+          <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+      </div>
+    </div>
+  </div>
+
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- Script to Activate the Carousel -->
+<script>
+  $('.carousel').carousel({
+    interval: 5000 //changes the speed
+  })
+  
+  // Disable Google Maps scrolling
+  // See http://stackoverflow.com/a/25904582/1607849
+  // Disable scroll zooming and bind back the click event
+  
+  var onMapMouseleaveHandler = function(event) {
+    var that = $(this);
+    that.on('click', onMapClickHandler);
+    that.off('mouseleave', onMapMouseleaveHandler);
+    that.find('iframe').css("pointer-events", "none");
+  }
+  
+  var onMapClickHandler = function(event) {
+    var that = $(this);
+    // Disable the click handler until the user leaves the map area
+    that.off('click', onMapClickHandler);
+    // Enable scrolling zoom
+    that.find('iframe').css("pointer-events", "auto");
+    // Handle the mouse leave event
+    that.on('mouseleave', onMapMouseleaveHandler);
+  }
+  
+  // Enable map zooming with mouse scroll when the user clicks the map
+  $('.map').on('click', onMapClickHandler);
+</script>

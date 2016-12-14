@@ -2,9 +2,10 @@ class Event < ApplicationRecord
   belongs_to :user
   enum category: { homeless: 0, elderly: 1, animals: 2 }
   enum status: { open:0, cancelled: 1, expired:2 }
-  has_one :event_detail
+  has_one :event_detail, dependent: :destroy
   accepts_nested_attributes_for :event_detail
   has_many :event_volunteers
+  # has_many :users, through: :event_volunteers
   mount_uploaders :event_photos, EventPhotosUploader
   include Filterable
 
@@ -21,6 +22,7 @@ class Event < ApplicationRecord
   scope :start_date,  -> (start_date) { where("start_date > ? AND end_date > ?", start_date, Date.yesterday) }
   scope :end_date,    -> (end_date) { where("start_date < ? AND end_date > ?", end_date, Date.yesterday) }
 
+  include PgSearch
   pg_search_scope :search, against: [:title, :description], using: {tsearch: {dictionary: "english"}}
 
   

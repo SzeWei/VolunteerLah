@@ -41,9 +41,11 @@ class EventVolunteersController < ApplicationController
           if @event_volunteer.save
             gon.response = true
             format.js
+            format.html { redirect_to event_path(@event), notice: 'You have successfully volunteered.' }
           else
             gon.response = false
             format.js
+            format.html { redirect_to event_path(@event), notice: 'You have to sign up again.' }
           end
         end
       else

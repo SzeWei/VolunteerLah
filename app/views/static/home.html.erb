@@ -1,1 +1,128 @@
-test
+<body>
+    <header id="myCarousel" class="carousel slide">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+          <li data-target="#myCarousel" data-slide-to="1"></li>
+          <li data-target="#myCarousel" data-slide-to="2"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner">
+          <div class="item active">
+              <div class="fill"><img src="/images/michelangelo-71282.jpg"></div>
+              <div class="carousel-caption">
+                  <h2>Slide 1</h2>
+              </div>
+          </div>
+          <div class="item">
+              <div class="fill"><img src="img/michelangelo-71282.jpg"></div>
+              <div class="carousel-caption">
+                  <h2>Slide 2</h2>
+              </div>
+          </div>
+          <div class="item">
+              <div class="fill"><img src="img/michelangelo-71282.jpg"></div>
+              <div class="carousel-caption">
+                  <h2>Slide 3</h2>
+              </div>
+          </div>
+      </div>
+
+      <!-- Controls -->
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="icon-prev"></span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="icon-next"></span>
+      </a>
+    </header>
+
+    <hr>
+
+    <hr>
+    
+    <!-- Page Content -->
+    <div class="container">
+
+
+       <%= render partial: "home/form" %>
+        
+        <div class="row">
+           <%=link_to  do %>
+            <div class="col-sm-4">
+                <%= image_tag("poor-1775239_1280.jpg", class: "img-responsive img-thumbnail img-circle",)  %>
+                <h2>Homeless</h2>
+                <p>These marketing boxes are a great place to put some information. These can contain summaries of what the company does, promotional information, or anything else that is relevant to the company. These will usually be below-the-fold.</p>
+            </div>
+            <div class="col-sm-4">
+                <%= image_tag("mrs-1684465_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
+                <h2>Elderly</h2>
+                <p>The images are set to be circular and responsive. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            </div>
+            <div class="col-sm-4">
+                <%= image_tag("dog-1705124_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
+                <h2>Animals</h2>
+                <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui.</p>
+            </div>
+            <% end %>
+        </div>
+        
+
+        <hr>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <h2>About Us</h2>
+                <p>Introduce the visitor to the business using clear, informative text. Use well-targeted keywords within your sentences to make sure search engines can find the business.</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et molestiae similique eligendi reiciendis sunt distinctio odit? Quia, neque, ipsa, adipisci quisquam ullam deserunt accusantium illo iste exercitationem nemo voluptates asperiores.</p>
+            </div>
+
+              <!-- Button -->
+           
+            
+            <div class="col-sm-4">
+                <h2>Contact Us</h2>
+                <address>
+                    <strong>Start Bootstrap</strong>
+                    <br>3481 Melrose Place
+                    <br>Beverly Hills, CA 90210
+                    <br>
+                </address>
+                <address>
+                    <abbr title="Phone">P:</abbr>(123) 456-7890
+                    <br>
+                    <abbr title="Email">E:</abbr> <a href="mailto:#">info@vollah.com</a>
+                </address>
+            </div>
+        </div>
+        <!-- /.row -->
+        <hr>
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright &copy; Volunteer Lah 2016</p>
+                </div>
+            </div>
+            <!-- /.row -->
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- jQuery -->
+   <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+
+  <!-- Script to Activate the Carousel -->
+  <script>
+  $('.carousel').carousel({
+    interval: 5000 //changes the speed
+  })
+
+  </script>
+</body>

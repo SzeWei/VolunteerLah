@@ -10,3 +10,115 @@
     <p> oh you're admin? actually this page does not exist... so... eh.. heh heh heh... (*awkward)... </p>
   <% end %>
 <% end %>
+
+<div class="container">
+        <div id="top" class="header">
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h2><%= @user.organisation_profile.name %></h2>
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="event-details">
+                  <h2>Contact US!</h2>
+                  <p>Website: <a href="<%= @user.organisation_profile.website %>"><%= @user.organisation_profile.name %></a></p>
+                  <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
+                  <p>Contact Number: <%= @user.organisation_profile.phone %></p>
+                  <p>Email: <%= @user.organisation_profile.email %></p>
+                </div>
+              </div>
+
+            <div class="col-md-6">
+                <div class="event-description">
+                  <h2>Organization Description</h2>
+                  <p><%= @user.organisation_profile.org_description %></p>
+                </div>
+                <div class="address">
+                  <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
+                  <section id="contact" class="map">
+                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+                    <br />
+                    <small>
+                      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+                    </small>
+                  </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h3 class="page-header">Related Events</h3>
+            </div>
+
+            <% @events.each do |event| %>
+        			<div class="col-lg-4 col-sm-6">
+			          <a href ="<%=event_path(event) %>"><img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt=""></a>
+			            <%= event.title %> </br>
+			            <%= event.description %></br>
+			            <%= event.start_date %></br>
+			            <%= event.end_date %></br>
+			            <%= event.category %>
+			        </div>
+			    	<% end %>
+        </div>
+        <%= will_paginate @events, renderer: BootstrapPagination::Rails %>
+    		<%= page_entries_info @events %>
+    </div>
+
+
+    <!-- jQuery -->
+      <script src="js/jquery.js"></script>
+
+      <!-- Bootstrap Core JavaScript -->
+      <script src="js/bootstrap.min.js"></script>
+
+      <script>
+      function initMap() {
+    // do map object creation and initialization here
+    // ...
+
+    // add a click event handler to the map object
+        GEvent.addListener(map, "click", function(overlay, latLng)
+        {
+            // display the lat/lng in your form's lat/lng fields
+            document.getElementById("latFld").value = latLng.lat();
+            document.getElementById("lngFld").value = latLng.lng();
+        });
+    }
+
+      // Disable Google Maps scrolling
+      // See http://stackoverflow.com/a/25904582/1607849
+      // Disable scroll zooming and bind back the click event
+
+      var onMapMouseleaveHandler = function(event) {
+        var that = $(this);
+        that.on('click', onMapClickHandler);
+        that.off('mouseleave', onMapMouseleaveHandler);
+        that.find('iframe').css("pointer-events", "none");
+      }
+
+      var onMapClickHandler = function(event) {
+        var that = $(this);
+        // Disable the click handler until the user leaves the map area
+        that.off('click', onMapClickHandler);
+        // Enable scrolling zoom
+        that.find('iframe').css("pointer-events", "auto");
+        // Handle the mouse leave event
+        that.on('mouseleave', onMapMouseleaveHandler);
+      }
+      
+      // Enable map zooming with mouse scroll when the user clicks the map
+      $('.map').on('click', onMapClickHandler);
+      </script>

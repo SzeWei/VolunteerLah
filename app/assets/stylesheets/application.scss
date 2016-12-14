@@ -1,5 +1,3 @@
-@import "bootstrap-sprockets";
-@import "bootstrap";
 
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
@@ -16,3 +14,128 @@
  *= require_tree .
  *= require_self
  */
+
+html,
+body {
+    padding: 0;
+    margin-top: 50px;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
+}
+.container {
+    display: block;
+    padding-top: 0;
+    margin: 20px;
+}
+	$bgDefault: #e74c3c;
+	$bgHighlight: #c0392b;
+	$colDefault: #ecf0f1;
+	$colHighlight: #ffbbbc;
+
+	.navbar-default {
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+    .navbar-brand {
+        color: $colDefault;
+        &:hover, &:focus {
+            color: $colHighlight;
+        }
+  		}
+  	}
+    .navbar-text {
+        color: $colDefault;
+    }
+    .navbar-nav {
+        > li {
+            > a {
+                color: $colDefault;
+                &:hover, &:focus {
+                    color: $colHighlight;
+                }
+            }
+        }
+        > .active {
+            > a, > a:hover, > a:focus {
+                color: $colHighlight;
+                background-color: $bgHighlight;
+            }
+        }
+        > .open {
+            > a, > a:hover, > a:focus {
+                color: $colHighlight;
+                background-color: $bgHighlight;
+            }
+        }
+    }
+    .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+            background-color: $bgHighlight;
+        }
+        .icon-bar {
+            background-color: $colDefault;
+        }
+    }
+    .navbar-collapse,
+    .navbar-form {
+        border-color: $colDefault;
+    }
+    .navbar-link {
+        color: $colDefault;
+    }
+
+    header.carousel {
+    height: 50%;
+}
+
+header.carousel .item,
+header.carousel .item.active,
+header.carousel .carousel-inner {
+    height: 100%;
+}
+
+header.carousel .fill {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+}
+
+.map {
+    height: 500px;
+}
+
+@media(max-width:768px) {
+    .map {
+        height: 75%;
+    }
+}
+
+.map iframe {
+    pointer-events: none;
+}
+
+
+#top {
+	width: 100%;
+	height: 150px;
+}
+.header {
+	position: relative;
+  width: 100%;
+  height: 100%;
+  background: url(../images/michelangelo-71282.jpg) no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+}
+
+.header h2 {
+	vertical-align: -50px;
+}
+

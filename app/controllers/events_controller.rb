@@ -1,4 +1,6 @@
 class EventsController < ApplicationController
+  include Filterable
+
   # before_action :set_event, only: [:show, :edit, :update, :destroy]
   # GET /events
   # GET /events.json
@@ -28,7 +30,7 @@ class EventsController < ApplicationController
     # Calls method Event#filter from "app/models/concerns/filterable.rb"
     @events = Event.filter(filter_params)
     # Paginate Events index
-    @events = Event.order("created_at DESC").paginate(page: params[:page], per_page: 30)
+    @events = @events.order("created_at DESC").paginate(page: params[:page], per_page: 15)
   end
 
   # GET /events/1
@@ -37,6 +39,7 @@ class EventsController < ApplicationController
     set_event
     @event_detail = @event.event_detail
     @event_volunteer = @event.event_volunteers.new
+    @organisation = @event.user.organisation_profile if @event.user.present?
   end
 
   # GET /events/new
@@ -55,7 +58,7 @@ class EventsController < ApplicationController
   def create
     respond_to do |format|
       if current_user.organisation? || current_user.admin?
-        @event = Event.new(event_params)
+        @event = current_user.events.new(event_params)
           if @event.save
             format.html { redirect_to @event, notice: 'Event was successfully created.' }
             # format.json { render :show, status: :created, location: @event }

@@ -1,50 +1,54 @@
-<%= form_for(event_volunteer, url: url) do |f| %>
-  <% if event_volunteer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(event_volunteer.errors.count, "error") %> prohibited this event_volunteer from being saved:</h2>
 
-      <ul>
-      <% event_volunteer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_for(event_volunteer, url: url) do |f| %>
+    <% if event_volunteer.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(event_volunteer.errors.count, "error") %> prohibited this event_volunteer from being saved:</h2>
+
+        <ul>
+        <% event_volunteer.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.hidden_field :id, value: event_volunteer.id if !event_volunteer.nil? %>
+    </div>
+
+    <div class="field">
+      <%= f.hidden_field :user_id, value: current_user.id if user_signed_in? %>
+    </div>
+
+    <div class="field">
+      <%= f.hidden_field :event_id, value: @event.id %>
+    </div>
+
+    <!-- The status field will be hidden from the volunteer's perspective. -->
+    <div class="field" style="<%= show_if_org_or_admin?(@event) %>">
+      <%= f.label :status %>
+      <%= f.select :status, EventVolunteer.statuses.keys.to_a.map {|s| [s.humanize, s]} %>
+    </div>
+
+    <div class="field">
+      <%= f.label :name %></br>
+      <%= f.text_field :name, placeholder: "Name", value: user_signed_in? ? current_user.name : ""  %>
+    </div>
+
+    <div class="field">
+      <%= f.label :email %></br>
+      <%= f.text_field :email, placeholder: "Email", value: user_signed_in? ? current_user.email : "" %>
+    </div>
+
+    <div class="field">
+      <%= f.label :phone %></br>
+      <%= f.text_field :phone, placeholder: "Contact Number", value: user_signed_in? ? current_user.profile.phone : "" %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Volunteer Now!" %>
     </div>
   <% end %>
+</div>
 
-  <div class="field">
-    <%= f.hidden_field :id, value: event_volunteer.id if !event_volunteer.nil? %>
-  </div>
 
-  <div class="field">
-    <%= f.hidden_field :user_id, value: current_user.id if user_signed_in? %>
-  </div>
-
-  <div class="field">
-    <%= f.hidden_field :event_id, value: @event.id %>
-  </div>
-
-  <!-- The status field will be hidden from the volunteer's perspective. -->
-  <div class="field" style="<%= show_if_org_or_admin?(@event) %>">
-    <%= f.label :status %>
-    <%= f.select :status, EventVolunteer.statuses.keys.to_a.map {|s| [s.humanize, s]} %>
-  </div>
-
-  <div class="field">
-    <%= f.label :name %>
-    <%= f.text_field :name, value: current_user.name  %>
-  </div>
-
-  <div class="field">
-    <%= f.label :email %>
-    <%= f.text_field :email, value: current_user.email  %>
-  </div>
-
-  <div class="field">
-    <%= f.label :phone %>
-    <%= f.text_field :phone, value: current_user.profile.phone if current_user.profile.phone.present?  %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Volunteer Now!" %>
-  </div>
-<% end %>

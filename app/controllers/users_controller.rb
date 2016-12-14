@@ -2,6 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user
 
   def show
+    @user = User.find(params[:id])
+    @events = @user.events.order("created_at DESC").paginate(page: params[:page], per_page: 6)
   end
 
   def destroy

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :organisation_profile
   has_many :events
   has_many :event_volunteers
+  # has_many :events, through: :event_volunteers
   validates :name, presence: true
   validates :email, presence: true, uniqueness: true
 
