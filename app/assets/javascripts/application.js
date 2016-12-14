@@ -16,4 +16,20 @@
 //= require turbolinks
 //= require_tree .
 
+$(function() {
+
+
+	$('#myTabs li a').click(function (e) {
+	  e.preventDefault();
+	  $(self).tab('show');
+	  
+	});
+});
+
+	
+
+
+
+
+
 

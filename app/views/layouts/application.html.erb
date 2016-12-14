@@ -7,103 +7,133 @@
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+   
   </head>
 
   <body>
   <div>
-  <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/">Volunteer Lah!</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-             
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <% if user_signed_in? %>
-                <ul class="nav navbar-nav">
-                    <li>
-                        <a href="/">Home</a>
-                    </li>
-                    <li>
-                        <a href="/events">Events</a>
-                    </li>
-                    <li>
-                        <a href="/">About Us</a>
-                    </li>
-                    <li>
-                        <a href="/home">Login/Register</a>
-                    </li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right" align="right">
-                        <li>
-                           <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
-                        </li>
-                    </ul>  
-                <% end %>
-            </div>
-
-            <!-- /.navbar-collapse -->
+    <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" id="navbar-brand" href="/"><%= image_tag("Logomakr_8AOn6r.png")%></a>
         </div>
-        <!-- /.container -->
-    </nav>
-    </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+         
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <% if user_signed_in? %>
+            <ul class="nav navbar-nav">
+              <li>
+                <a href="/">Home</a>
+              </li>
+              <li>
+                 <a href="/events">Events</a>
+              </li>
+              <li>
+                 <a href="#aboutus">About Us</a>
+              </li>            
+              <!-- Trigger the modal with a button -->
+              <li>
+                 <a data-toggle="modal" data-target="#myModal" href="">Login/Register</a>
+              </li>
+              <li>
+                <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+              </li>
+            </ul> 
+          <% end %>
+        </div>
+      </div><!-- /.container -->
+    </nav><!-- /#bs-example-navbar-collapse-1 -->
+  </div>
 
-    <%= yield %>
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog" data-backdrop="false">
+    <div class="modal-dialog">
 
-    </body>
+        <div class="modal-content">
+          <div class="modal-body">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist" id="myTabs">
+                <li role="presentation" class="active"><a href="#tab-login" aria-controls="login" role="tab" data-toggle="tab">Login</a></li>
+                <li role="presentation"><a href="#tab-register" aria-controls="register" role="tab" data-toggle="tab">Register</a></li>
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+
+                <div role="tabpanel" class="tab-pane active" id="tab-login">
+                  <form id="log-form" action="http://phpoll.com/login/process" method="post" role="form">
+                    <div class="form-group">
+                      <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                    </div>
+                    <div class="form-group">
+                       <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group text-center">
+                      <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                      <label for="remember"> Remember Me</label>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                          <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-lg-12">
+                          <div class="text-center">
+                            <a href="http://phpoll.com/recover" tabindex="5" class="forgot-password">Forgot Password?</a>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+
+                <div role="tabpanel" class="tab-pane" id="tab-register">
+                  <form id="reg-form" action="http://phpoll.com/register/process" method="post" role="form">
+                    <div class="form-group">
+                      <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                    </div>
+                    <div class="form-group">
+                      <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password">
+                    </div>
+                    <div class="form-group">
+                      <div class="row">
+                        <div class="col-sm-6 col-sm-offset-3">
+                          <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+          </div><!-- /.modal-body -->
+        </div><!-- /.modal-content -->
+    
+    </div><!-- /.modal-dialog -->
+  </div><!-- /.modal -->
+
+  <%= yield %>
+
+  </body>
 </html>
-
-<style>
-
-$bgDefault      : #e74c3c;
-$bgHighlight    : #c0392b;
-$colDefault     : #ecf0f1;
-$colHighlight       : #ffbbbc;
-.navbar-default {
-  background-color: $bgDefault;
-  border-color: $bgHighlight;
-  .navbar-brand {
-    color: $colDefault;
-    &:hover, &:focus { 
-      color: $colHighlight; }}
-  .navbar-text {
-    color: $colDefault; }
-  .navbar-nav {
-    > li {
-      > a {
-        color: $colDefault;
-        &:hover,  &:focus {
-          color: $colHighlight; }}}
-    > .active {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}
-    > .open {
-      > a, > a:hover, > a:focus {
-        color: $colHighlight;
-        background-color: $bgHighlight; }}}
-  .navbar-toggle {
-    border-color: $bgHighlight;
-    &:hover, &:focus {
-      background-color: $bgHighlight; }
-    .icon-bar {
-      background-color: $colDefault; }}
-  .navbar-collapse,
-  .navbar-form {
-    border-color: $colDefault; }
-  .navbar-link {
-    color: $colDefault;
-
-</style>

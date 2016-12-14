@@ -22,6 +22,17 @@
 
     }
 
+  .well {
+    
+    background: url('../../assets/images/kid-674516.jpg') center center no-repeat scroll;
+    background-image: linear-gradient(rgba(255,255,255,0.8),rgba(255,255,255,0.8)), url('../../assets/images/help-1265227_640.jpg');
+     -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+
+  }
+
 </style> 
 </head>
 
@@ -33,14 +44,16 @@
 
     <hr>
 
-    <div class="container">
+    <div class="container" >
+        
         <div class="row">
             <div class="col-md-6">
-                <div class="well well-sm">
-                    <form class="form-horizontal" method="post">
+
+                <div class="well well-sm" id="well">
+                    <form class="form-horizontal" method="post" id="container">
                         <fieldset>
-                            <legend class="text-center panel-body">Create Event</legend>
-                            <div class="form-group">
+                            <h3><legend class="text-center panel-body">Create Event</legend></h3>
+                            <div class="form-group" >
                                 <div class="col-md-10 col-md-offset-1">
                                     <input id="ename" name="name" type="text" placeholder="Event name" class="form-control">
                                 </div>
@@ -127,11 +140,6 @@
             </section>
     </div>
 
-
-    <script src="js/jquery.js"></script>
-
-      <!-- Bootstrap Core JavaScript -->
-      <script src="js/bootstrap.min.js"></script>
 
       <!-- Script to Activate the Carousel -->
       <script>
