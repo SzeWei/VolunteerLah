@@ -1,6 +1,205 @@
-<h1>Editing Event</h1>
+<h1>Edit Event</h1>
 
-<%= render 'form', event: @event %>
+<%= form_for(@event) do |f| %>
+  <% if @event.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+      <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<div class="container">
+  <div class="row">
+  	
+  	<div class="col-md-6">
+			<div class="well well-sm">
+			  <form class="form-horizontal" method="post">
+			  <fieldset>
+			 	<hr>
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <%= f.label :title, class: "control-label" %>
+			      <%= f.text_field :title, class: "form-control" %></br>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <%= f.label :description, class: "control-label" %>
+			      <%= f.text_area :description, class: "form-control", rows: "10"%></br>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <%= f.label :start_date, class: "control-label" %>
+			      <%= f.date_select :start_date, class: "form-control" %></br>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <%= f.label :end_date, class: "control-label" %>
+			      <%= f.date_select :end_date, class: "form-control" %></br>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <%= f.label "Choose a category", class: "control-label" %>
+			      <%= f.select :category, Event.categories.keys.to_a.map {|r| [r.humanize, r]}, class: "form-control" %></br>
+			    </div>
+			  </div>
+			  <!--  <div class="form-group">
+			    < %= f.label :user %>
+			    < %= f.hidden_field :user %>
+			    </div> -->
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <%= f.label :event_photos, class: "control-label" %>
+			      <%= f.file_field :event_photos, multiple: true, class: "form-control" %></br>
+			    </div>
+			  </div>
+			  <div class="form-group">
+			    <div class="col-md-10 col-md-offset-1">
+			      <p>
+			        <label>
+			        <%= f.check_box :remove_event_photos %>
+			        Remove photos
+			        </label>
+			      </p>
+			    </div>
+			  </div>
+			  <%= f.fields_for :event_detail do |u| %>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :venue_title, class: "control-label" %>
+				      <%= u.text_field :venue_title, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :street_address, class: "control-label" %>
+				      <%= u.text_field :street_address, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :postal_code, class: "control-label" %>
+				      <%= u.text_field :postal_code, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :city, class: "control-label" %>
+				      <%= u.text_field :city, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :state, class: "control-label" %>
+				      <%= u.text_field :state, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :contact_number, class: "control-label" %>
+				      <%= u.text_field :contact_num, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      <%= u.label :Time, class: "control-label" %>
+				      <%= u.text_field :day_time, class: "form-control" %></br>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      
+				      <%= u.hidden_field :latitude, class: "form-control", value: '3.1349432' %>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-md-10 col-md-offset-1">
+				      
+				      <%= u.hidden_field :longitude, class: "form-control", value: '101.6277266' %>
+				    </div>
+				  </div>
+				<% end %>
+				  
+				  <div class="form-group">
+				    <div class="col-md-12 text-center">
+				      <button type="submit" class="btn btn-primary btn-lg"; >Update</button>
+				    </div>
+				  </div>
+			 	<% end %>
+			</div>
+		</div>
+		<div class="col-md-6">
+			<div id="map"></div>
+		</div>
+		
+	</div>
+</div>
+
 
 <%= link_to 'Show', @event %> |
 <%= link_to 'Back', events_path %>
+
+<script>
+  //set placeholder variables
+	var map; //the map element
+	var marker; //the map marker object(?) element(?)
+	var geocoder; //geocoder tool object
+
+	//define the location of next academy
+	var next_academy_latlng = {lat: 3.135045, lng: 101.629905}
+
+	//the function that the google map api will call right after running their js script
+	function initMap() {
+
+		debugger
+	    //define the map (the part that showing the map when initMap is ran)
+	    map = new google.maps.Map(document.getElementById('map'), {
+	        center: next_academy_latlng, 
+	        zoom: 8
+	    });
+
+	    //set the marker into next academy
+	    marker = new google.maps.Marker({
+	        position: next_academy_latlng,
+	        map: map
+	    });
+
+	    //the function that set the initial zoom of the map
+	    map.setZoom(8);
+
+	    //define geocoder
+	    geocoder = new google.maps.Geocoder();
+
+	    //when user click on map
+	    google.maps.event.addListener(map,'click',function(event) {
+	        //get latitude(lat) and longitude(lng)
+	        document.getElementById('lat').value = event.latLng.lat()
+	        document.getElementById('lng').value = event.latLng.lng()
+
+	        //set marker to the click position
+	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() })
+
+	        //get the address with geocoder
+	        geocoder.geocode({
+	        'latLng': event.latLng
+	        }, function(results, status) {
+	            if (status == google.maps.GeocoderStatus.OK) {
+	                if (results[0]) {
+	                    //document.getElementById('address-span').innerHTML = results[0].formatted_address;
+	                }
+	            }
+	        });
+	    });
+	}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
+async defer></script>
+
+

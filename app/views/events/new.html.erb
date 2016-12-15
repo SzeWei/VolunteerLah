@@ -9,56 +9,72 @@ id="top" class="business-header">
 			<%= render 'form', event: @event, url: events_path, html: { method: :post } %>
 		</div>
 
-		<div class="col-lg-6">
-		  <div>
-		    <div class="panel panel-default">
-		      <div class="panel-body text-center">
-		        <section id="contact" class="map">
-		          <iframe width="100%" height="100%" align="top" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-		          <br />
-		          <small>
-		          <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-		          </small>
-		        </section>
-		      </div>
-		      <script src="js/jquery.js"></script>
-		      <!-- Bootstrap Core JavaScript -->
-		      <script src="js/bootstrap.min.js"></script>
-		      <!-- Script to Activate the Carousel -->
-		      <script>
-		        $('.carousel').carousel({
-		          interval: 5000 //changes the speed
-		        })
-		        
-		        // Disable Google Maps scrolling
-		        // See http://stackoverflow.com/a/25904582/1607849
-		        // Disable scroll zooming and bind back the click event
-		        
-		        var onMapMouseleaveHandler = function(event) {
-		          var that = $(this);
-		          that.on('click', onMapClickHandler);
-		          that.off('mouseleave', onMapMouseleaveHandler);
-		          that.find('iframe').css("pointer-events", "none");
-		        }
-		        
-		        var onMapClickHandler = function(event) {
-		          var that = $(this);
-		          // Disable the click handler until the user leaves the map area
-		          that.off('click', onMapClickHandler);
-		          // Enable scrolling zoom
-		          that.find('iframe').css("pointer-events", "auto");
-		          // Handle the mouse leave event
-		          that.on('mouseleave', onMapMouseleaveHandler);
-		        }
-		        
-		        // Enable map zooming with mouse scroll when the user clicks the map
-		        $('.map').on('click', onMapClickHandler);
-		      </script>
+		<div class="col-md-6">
+
+		    <div id="map">
+
+		      
 		    </div>
 		  </div>
 		</div>
 	</div>
 </div>
 
-
 <%= link_to 'Back', events_path %>
+
+<script>
+  //set placeholder variables
+	var map; //the map element
+	var marker; //the map marker object(?) element(?)
+	var geocoder; //geocoder tool object
+
+	//define the location of next academy
+	var next_academy_latlng = {lat: 3.135045, lng: 101.629905}
+
+	//the function that the google map api will call right after running their js script
+	function initMap() {
+
+		debugger
+	    //define the map (the part that showing the map when initMap is ran)
+	    map = new google.maps.Map(document.getElementById('map'), {
+	        center: next_academy_latlng, 
+	        zoom: 8
+	    });
+
+	    //set the marker into next academy
+	    marker = new google.maps.Marker({
+	        position: next_academy_latlng,
+	        map: map
+	    });
+
+	    //the function that set the initial zoom of the map
+	    map.setZoom(8);
+
+	    //define geocoder
+	    geocoder = new google.maps.Geocoder();
+
+	    //when user click on map
+	    google.maps.event.addListener(map,'click',function(event) {
+	        //get latitude(lat) and longitude(lng)
+	        document.getElementById('lat').value = event.latLng.lat()
+	        document.getElementById('lng').value = event.latLng.lng()
+
+	        //set marker to the click position
+	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() })
+
+	        //get the address with geocoder
+	        geocoder.geocode({
+	        'latLng': event.latLng
+	        }, function(results, status) {
+	            if (status == google.maps.GeocoderStatus.OK) {
+	                if (results[0]) {
+	                    //document.getElementById('address-span').innerHTML = results[0].formatted_address;
+	                }
+	            }
+	        });
+	    });
+	}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
+async defer></script>
+

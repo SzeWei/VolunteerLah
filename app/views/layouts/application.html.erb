@@ -50,12 +50,15 @@
           <ul class="nav navbar-nav navbar-right" align="right">
          
               <% if user_signed_in? %>
+                <% if current_user.organisation? %>
+                  <li> <%= link_to "Create Event", new_event_path %></li>
+                <% end %>
                 <li> <%= link_to "My Profile", current_user %></li>
                 <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               <% end %>
             
-          </ul>
-        </div>
+            </ul>
+          </div>
         <!-- /.navbar-collapse -->
       </div>
       <!-- /.container -->

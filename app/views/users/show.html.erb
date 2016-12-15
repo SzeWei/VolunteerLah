@@ -4,7 +4,7 @@
   <% if current_user == @user %>
     <div class="col-lg-12 ">
       <% render partial: "users/carousel" %>
-        <div class="card-info"> <span class="card-title">@user.organisation_profile.name</span>
+        <div class="card-info"> <span class="card-title"><%= @user.organisation_profile.name %></span>
         </div>
       <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
@@ -32,6 +32,7 @@
                     <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
                     <p>Contact Number: <%= @user.organisation_profile.phone %></p>
                     <p>Email: <%= @user.organisation_profile.email %></p>
+                    <p>Email: <%= @user.organisation_profile.email if @user.organisation_profile.email.present? %></p>
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -41,13 +42,7 @@
                   </div>
                   <div class="address">
                     <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
-                    <section id="contact" class="map">
-                      <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-                      <br />
-                      <small>
-                      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-                      </small>
-                    </section>
+                    <div id="map"></div>
                   </div>
                 </div>
               </div>
@@ -98,13 +93,7 @@
           </div>
           <div class="address">
             <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
-            <section id="contact" class="map">
-              <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-              <br />
-              <small>
-              <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-              </small>
-            </section>
+            <div id="map"></div>
           </div>
         </div>
       </div>
@@ -177,13 +166,13 @@
             <h3>Upcoming Events</h3>
             <ol>
               <% @volunteered_events_open.each do |event| %>
-                <li><%= link_to event.title, event %> <%= link_to 'Edit', edit_event_path(event), type: 'button', class: 'btn btn-default' %></li>
+                <li><%= link_to event.title, event %></li>
               <% end %>
             </ol>
             <h3>Past Events</h3>
             <ol>
               <% @volunteered_events_expired.each do |event| %>
-                <li><%= link_to event.title, event %> <%= link_to 'Edit', edit_event_path(event), type: 'button', class: 'btn btn-default' %></li>
+                <li><%= link_to event.title, event %> </li>
               <% end %>
             </ol>
          </div>
@@ -196,9 +185,7 @@
 
 
 <!-- jQuery -->
-<script src="js/jquery.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<% if user_signed_in? && @user.organisation? %>
 <script>
   $(document).ready(function() {
         $(".btn-pref .btn").click(function () {
@@ -207,40 +194,83 @@
             $(this).removeClass("btn-default").addClass("btn-primary");   
         });
     });
+  //set placeholder variables
+  var map; //the map element
+  var marker; //the map marker object(?) element(?)
+  var geocoder; //geocoder tool object
+
+  //define the location of next academy
+  //var latlng; //= {lat: < %= @event.event_detail.latitude %>, lng: < %= @event.event_detail.longitude %>}
+
+  //the function that the google map api will call right after running their js script
   function initMap() {
-  // do map object creation and initialization here
-  // ...
-  
-  // add a click event handler to the map object
-    GEvent.addListener(map, "click", function(overlay, latLng)
-    {
-        // display the lat/lng in your form's lat/lng fields
-        document.getElementById("latFld").value = latLng.lat();
-        document.getElementById("lngFld").value = latLng.lng();
-    });
+      var latlng;
+      geocoder = new google.maps.Geocoder();
+        geocoder.geocode({
+          'address': "<%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %>"
+        }, function(results,status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+              latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()}
+              walaoeehh(latlng);
+            }
+            else
+            {
+              latlng = {lat: 3.27229523935188, lng: 101.570401983462}
+              walaoeehh(latlng);
+            }
+          }
+          else
+          {
+            latlng = {lat: 3.27229523935188, lng: 101.570401983462}
+            walaoeehh(latlng);
+          }
+        })
+
+        //define the map (the part that showing the map when initMap is ran)
+        
+
+      //define geocoder
+      // geocoder = new google.maps.Geocoder();
+
+      // //when user click on map
+      // google.maps.event.addListener(map,'click',function(event) {
+      //     //get latitude(lat) and longitude(lng)
+      //     document.getElementById('latspan').innerHTML = event.latLng.lat()
+      //     document.getElementById('lngspan').innerHTML = event.latLng.lng()
+
+      //     //set marker to the click position
+      //     marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() })
+
+      //     //get the address with geocoder
+      //     geocoder.geocode({
+      //     'latLng': event.latLng
+      //     }, function(results, status) {
+      //         if (status == google.maps.GeocoderStatus.OK) {
+      //             if (results[0]) {
+      //                 document.getElementById('address-span').innerHTML = results[0].formatted_address;
+      //             }
+      //         }
+      //     });
+      // });
   }
-  
-  // Disable Google Maps scrolling
-  // See http://stackoverflow.com/a/25904582/1607849
-  // Disable scroll zooming and bind back the click event
-  
-  var onMapMouseleaveHandler = function(event) {
-    var that = $(this);
-    that.on('click', onMapClickHandler);
-    that.off('mouseleave', onMapMouseleaveHandler);
-    that.find('iframe').css("pointer-events", "none");
+  function walaoeehh(latlng)
+  {
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: latlng, 
+        zoom: 8
+      });
+
+      //set the marker into next academy
+      marker = new google.maps.Marker({
+        position: latlng,
+        map: map
+      });
+
+      //the function that set the initial zoom of the map
+      map.setZoom(15);
   }
-  
-  var onMapClickHandler = function(event) {
-    var that = $(this);
-    // Disable the click handler until the user leaves the map area
-    that.off('click', onMapClickHandler);
-    // Enable scrolling zoom
-    that.find('iframe').css("pointer-events", "auto");
-    // Handle the mouse leave event
-    that.on('mouseleave', onMapMouseleaveHandler);
-  }
-  
-  // Enable map zooming with mouse scroll when the user clicks the map
-  $('.map').on('click', onMapClickHandler);
 </script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
+async defer></script>
+<% end %>

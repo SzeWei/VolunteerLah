@@ -76,6 +76,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
+    set_event
     if current_user.organisation? || current_user.admin?
       if ( current_user == @event.user || current_user.admin? ) && @event.open? 
         respond_to do |format|

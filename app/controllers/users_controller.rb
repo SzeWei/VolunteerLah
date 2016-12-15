@@ -7,8 +7,8 @@ class UsersController < ApplicationController
 
     @events_expired = @user.events.where(status: :expired).order("created_at DESC")
 
-    @volunteered_events_open = @user.volunteered_events.where(status: :open).order(:desc)
-    @volunteered_events_expired = @user.volunteered_events.where(status: :expired).order(:desc)
+    @volunteered_events_open = @user.volunteered_events.where(status: :open).order("created_at DESC")
+    @volunteered_events_expired = @user.volunteered_events.where(status: :expired).order("created_at DESC")
   end
 
   def destroy

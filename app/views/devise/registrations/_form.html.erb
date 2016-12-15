@@ -1,0 +1,171 @@
+<div class="col-lg-12 ">
+            
+                <div class="card-info"> <span class="card-title"><%= @user.organisation_profile.name %></span>
+                </div>
+            </div>
+
+            <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+                <div class="btn-group" role="group">
+                    <button type="button" id="my profiles" class="btn btn-primary" href="#tab1" data-toggle="tab"><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                        <div class="hidden-xs">My Profile</div>
+                    </button>
+                </div>
+            </div>
+
+            <div class="well">
+                <h2>Profile Details</h2>
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tab1">
+                        <div class="organization-description">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <p>* Mandatory fields</p>
+                                                <div class="col-lg-6">
+                                                    <form role="form">
+                                                        <div class="form-group">
+                                                            <%= form_for :organisation_profile do |u| %>
+                                                             
+                                                              <div class="form-group">
+                                                                <%= u.label :name %><br />
+                                                                <%= u.text_field :name %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :field_or_industry %><br />
+                                                                <%= u.text_field :field_or_industry %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :website %><br />
+                                                                <%= u.text_field :website %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :org_description %><br />
+                                                                <%= u.text_area :org_description %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :org_size %><br />
+                                                                <%= u.number_field :org_size %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :language %><br />
+                                                                <%= u.text_field :language %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :phone %><br />
+                                                                <%= u.text_field :phone %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :fax %><br />
+                                                                <%= u.text_field :fax %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :contact_email %><br />
+                                                                <%= u.text_field :email %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :contact_person %><br />
+                                                                <%= u.text_field :contact_person %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :address %><br />
+                                                                <%= u.text_area :address %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :postal_code %><br />
+                                                                <%= u.text_field :postal_code %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :city %><br />
+                                                                <%= u.text_field :city %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label :state %><br />
+                                                                <%= u.text_field :state %>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                        <!--         < %= u.label :user_id %><br />
+                                                         -->    <%= u.hidden_field :user_id %>
+                                                                <% # This should be hidden field%>
+                                                              </div>
+
+                                                              <div class="form-group">
+                                                                <%= u.label "Images/Photos" %><br />
+                                                                <%= u.file_field :org_photos, multiple: true %>
+                                                              </div>
+                                                        
+                                                          <% end %>
+                                                          
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>       
+                                    </div>        
+                                </div>
+                            </div>    
+                        </div>
+                        <a href="organization-profile.html" type="button" class="btn btn-default">Update Profile</a>
+                    </div>
+                </div>
+            </div>    
+        </div>
+
+        <!-- jQuery -->
+        <script src="js/jquery.js"></script>
+
+          <!-- Bootstrap Core JavaScript -->
+        <script src="js/bootstrap.min.js"></script>
+
+        <script>
+        //   function initMap() {
+        // // do map object creation and initialization here
+        // // ...
+
+        // // add a click event handler to the map object
+        //     GEvent.addListener(map, "click", function(overlay, latLng)
+        //     {
+        //         // display the lat/lng in your form's lat/lng fields
+        //         document.getElementById("latFld").value = latLng.lat();
+        //         document.getElementById("lngFld").value = latLng.lng();
+        //     });
+        // }
+
+          // Disable Google Maps scrolling
+          // See http://stackoverflow.com/a/25904582/1607849
+          // Disable scroll zooming and bind back the click event
+
+          var onMapMouseleaveHandler = function(event) {
+            var that = $(this);
+            that.on('click', onMapClickHandler);
+            that.off('mouseleave', onMapMouseleaveHandler);
+            that.find('iframe').css("pointer-events", "none");
+          }
+
+          var onMapClickHandler = function(event) {
+            var that = $(this);
+            // Disable the click handler until the user leaves the map area
+            that.off('click', onMapClickHandler);
+            // Enable scrolling zoom
+            that.find('iframe').css("pointer-events", "auto");
+            // Handle the mouse leave event
+            that.on('mouseleave', onMapMouseleaveHandler);
+          }
+          
+          // Enable map zooming with mouse scroll when the user clicks the map
+          $('.map').on('click', onMapClickHandler);
+        </script>
