@@ -48,11 +48,12 @@
             <% end %>
           </ul>
           <ul class="nav navbar-nav navbar-right" align="right">
-            <li>
+         
               <% if user_signed_in? %>
-                <%= link_to "Sign out", destroy_user_session_path, method: :delete %>
+                <li> <%= link_to "My Profile", current_user %></li>
+                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               <% end %>
-            </li>
+            
           </ul>
         </div>
         <!-- /.navbar-collapse -->

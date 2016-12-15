@@ -5,7 +5,7 @@ class Event < ApplicationRecord
   has_one :event_detail, dependent: :destroy
   accepts_nested_attributes_for :event_detail
   has_many :event_volunteers
-  # has_many :users, through: :event_volunteers
+  has_many :volunteers, through: :event_volunteers, source: :user
   mount_uploaders :event_photos, EventPhotosUploader
   include Filterable
 

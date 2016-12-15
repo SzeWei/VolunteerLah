@@ -1,124 +1,246 @@
-<% if @user.volunteer? %>
-  <p> test call volunteer profile's attribute </p>
-  <p>Education: <%= @user.profile.education %></p>
-<% elsif @user.organisation? %>
-  <p> test call organisation profile's attribute </p>
-  <p>Website: <%= @user.organisation_profile.website %></p>
-<% else %>
-  <p> You have no permission to view admin profile.</p>
-  <% if @user.admin? %>
-    <p> oh you're admin? actually this page does not exist... so... eh.. heh heh heh... (*awkward)... </p>
-  <% end %>
-<% end %>
 
-<div class="container">
-        <div id="top" class="header">
+
+<% if @user.organisation? %>
+  <% if current_user == @user %>
+    <div class="col-lg-12 ">
+      <% render partial: "users/carousel" %>
+        <div class="card-info"> <span class="card-title">@user.organisation_profile.name</span>
         </div>
-    </div>
-
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h2><%= @user.organisation_profile.name %></h2>
-            </div>
+      <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+        <div class="btn-group" role="group">
+          <button type="button" id="my profiles" class="btn btn-primary" href="#tab1" data-toggle="tab">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <div class="hidden-xs">My Profile</div>
+          </button>
         </div>
-    </div>
-
-    
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="event-details">
-                  <h2>Contact US!</h2>
-                  <p>Website: <a href="<%= @user.organisation_profile.website %>"><%= @user.organisation_profile.name %></a></p>
-                  <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
-                  <p>Contact Number: <%= @user.organisation_profile.phone %></p>
-                  <p>Email: <%= @user.organisation_profile.email %></p>
+        <div class="btn-group" role="group">
+          <button type="button" id="my events" class="btn btn-default" href="#tab2" data-toggle="tab">
+            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            <div class="hidden-xs">My Events</div>
+          </button>
+        </div>
+      </div>
+      <div class="well">
+        <div class="tab-content">
+          <div class="tab-pane fade in active" id="tab1">
+            <div class="organization-description"?>
+              <div class="container">
+                <div class="col-md-6">
+                  <div class="event-details">
+                    <h2>Contact US!</h2>
+                    <p>Website: <a href="<%= @user.organisation_profile.website %>"><%= @user.organisation_profile.name %></a></p>
+                    <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
+                    <p>Contact Number: <%= @user.organisation_profile.phone %></p>
+                    <p>Email: <%= @user.organisation_profile.email %></p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="event-description">
+                    <h2>Organization Description</h2>
+                    <p><%= @user.organisation_profile.org_description %></p>
+                  </div>
+                  <div class="address">
+                    <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
+                    <section id="contact" class="map">
+                      <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+                      <br />
+                      <small>
+                      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+                      </small>
+                    </section>
+                  </div>
                 </div>
               </div>
-
-            <div class="col-md-6">
-                <div class="event-description">
-                  <h2>Organization Description</h2>
-                  <p><%= @user.organisation_profile.org_description %></p>
-                </div>
-                <div class="address">
-                  <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
-                  <section id="contact" class="map">
-                    <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
-                    <br />
-                    <small>
-                      <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
-                    </small>
-                  </section>
-                </div>
             </div>
+            <%= link_to "Edit Profile", edit_user_registration_path, type: "button", class: "btn btn-default"%>
+          </div>
+          <div class="tab-pane fade in" id="tab2">
+            <h3>Upcoming Events</h3>
+            <ol>
+              <% @events_open.each do |event| %>
+                <li><%= link_to event.title, event %> <%= link_to 'Edit', edit_event_path(event), type: 'button', class: 'btn btn-default' %></li>
+              <% end %>
+            </ol>
+            <h3>Past Events</h3>
+            <ol>
+              <% @events_expired.each do |event| %>
+                <li><%= link_to event.title, event %> <%= link_to 'Edit', edit_event_path(event), type: 'button', class: 'btn btn-default' %></li>
+              <% end %>
+            </ol>
+          </div>
         </div>
+      </div>
     </div>
 
+  <% else %>
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <h3 class="page-header">Related Events</h3>
-            </div>
-
-            <% @events.each do |event| %>
-        			<div class="col-lg-4 col-sm-6">
-			          <a href ="<%=event_path(event) %>"><img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt=""></a>
-			            <%= event.title %> </br>
-			            <%= event.description %></br>
-			            <%= event.start_date %></br>
-			            <%= event.end_date %></br>
-			            <%= event.category %>
-			        </div>
-			    	<% end %>
+      <div class="row">
+        <div class="col-lg-12">
+          <h2><%= @user.organisation_profile.name %></h2>
         </div>
-        <%= will_paginate @events, renderer: BootstrapPagination::Rails %>
-    		<%= page_entries_info @events %>
+      </div>
     </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="event-details">
+            <h2>Contact US!</h2>
+            <p>Website: <a href="<%= @user.organisation_profile.website %>"><%= @user.organisation_profile.name %></a></p>
+            <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
+            <p>Contact Number: <%= @user.organisation_profile.phone %></p>
+            <p>Email: <%= @user.organisation_profile.email %></p>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="event-description">
+            <h2>Organization Description</h2>
+            <p><%= @user.organisation_profile.org_description %></p>
+          </div>
+          <div class="address">
+            <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
+            <section id="contact" class="map">
+              <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?f=q&amp;source=s_q&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A&amp;output=embed"></iframe>
+              <br />
+              <small>
+              <a href="https://maps.google.com/maps?f=q&amp;source=embed&amp;hl=en&amp;geocode=&amp;q=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;aq=0&amp;oq=twitter&amp;sll=28.659344,-81.187888&amp;sspn=0.128789,0.264187&amp;ie=UTF8&amp;hq=Twitter,+Inc.,+Market+Street,+San+Francisco,+CA&amp;t=m&amp;z=15&amp;iwloc=A"></a>
+              </small>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <h3 class="page-header">Related Events</h3>
+        </div>
+        <% @events.each do |event| %>
+        <div class="col-lg-4 col-sm-6">
+          <a href ="<%=event_path(event) %>"><img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt=""></a>
+          <%= event.title %> </br>
+          <%= event.description %></br>
+          <%= event.start_date %></br>
+          <%= event.end_date %></br>
+          <%= event.category %>
+        </div>
+        <% end %>
+      </div>
+    </div>
+    <%= will_paginate @events, renderer: BootstrapPagination::Rails %>
+    <%= page_entries_info @events %>
+  <% end %>
+<% elsif @user.volunteer? %>
+  <div class="col-lg-12 ">
+    <div class="card hovercard">
+      <div class="card-background">
+         <img class="card-bkimg" alt="" src="http://lorempixel.com/100/100/people/9/">
+         <!-- http://lorempixel.com/850/280/people/9/ -->
+      </div>
+      <div class="useravatar">
+         <img alt="" src="http://lorempixel.com/100/100/people/9/">
+      </div>
+      <div class="card-info"> <span class="card-title">Pamela Anderson</span>
+      </div>
+   </div>
+   <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+      <div class="btn-group" role="group">
+         <button type="button" id="my profiles" class="btn btn-primary" href="#tab1" data-toggle="tab">
+            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+            <div class="hidden-xs">My Profile</div>
+         </button>
+      </div>
+      <div class="btn-group" role="group">
+         <button type="button" id="my events" class="btn btn-default" href="#tab2" data-toggle="tab">
+            <span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
+            <div class="hidden-xs">My Events</div>
+         </button>
+      </div>
+   </div>
+   <div class="well">
+      <div class="tab-content">
+         <div class="tab-pane fade in active" id="tab1">
+            <div class="volunteer-description">
+               <h3>Biography</h3>
+               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, optio corporis quae nulla aspernatur in alias at numquam rerum ea excepturi expedita tenetur assumenda voluptatibus eveniet incidunt dicta nostrum quod?</p>
+            </div>
+            <div class="Basic Information">
+               <h3>About Me!</h3>
+               <p>Date of Birth: 01-01-1991</p>
+               <p>Hometown: Georgetown, Penang</p>
+               <p>Language spoken: English</p>
+               <p>Email: pamela.anderson@gmail.com</p>
+               <p>Gender: Female</p>
+            </div>
+            <%= link_to "Edit Profile", edit_user_registration_path, type: "button", class: "btn btn-default"%>
+         </div>
+         <div class="tab-pane fade in" id="tab2">
+            <h3>Upcoming Events</h3>
+            <ol>
+              <% @volunteered_events_open.each do |event| %>
+                <li><%= link_to event.title, event %> <%= link_to 'Edit', edit_event_path(event), type: 'button', class: 'btn btn-default' %></li>
+              <% end %>
+            </ol>
+            <h3>Past Events</h3>
+            <ol>
+              <% @volunteered_events_expired.each do |event| %>
+                <li><%= link_to event.title, event %> <%= link_to 'Edit', edit_event_path(event), type: 'button', class: 'btn btn-default' %></li>
+              <% end %>
+            </ol>
+         </div>
+      </div>
+   </div>
+  </div> 
+<% end %> 
 
 
-    <!-- jQuery -->
-      <script src="js/jquery.js"></script>
 
-      <!-- Bootstrap Core JavaScript -->
-      <script src="js/bootstrap.min.js"></script>
 
-      <script>
-      function initMap() {
-    // do map object creation and initialization here
-    // ...
-
-    // add a click event handler to the map object
-        GEvent.addListener(map, "click", function(overlay, latLng)
-        {
-            // display the lat/lng in your form's lat/lng fields
-            document.getElementById("latFld").value = latLng.lat();
-            document.getElementById("lngFld").value = latLng.lng();
+<!-- jQuery -->
+<script src="js/jquery.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<script>
+  $(document).ready(function() {
+        $(".btn-pref .btn").click(function () {
+            $(".btn-pref .btn").removeClass("btn-primary").addClass("btn-default");
+            // $(".tab").addClass("active"); // instead of this do the below 
+            $(this).removeClass("btn-default").addClass("btn-primary");   
         });
-    }
-
-      // Disable Google Maps scrolling
-      // See http://stackoverflow.com/a/25904582/1607849
-      // Disable scroll zooming and bind back the click event
-
-      var onMapMouseleaveHandler = function(event) {
-        var that = $(this);
-        that.on('click', onMapClickHandler);
-        that.off('mouseleave', onMapMouseleaveHandler);
-        that.find('iframe').css("pointer-events", "none");
-      }
-
-      var onMapClickHandler = function(event) {
-        var that = $(this);
-        // Disable the click handler until the user leaves the map area
-        that.off('click', onMapClickHandler);
-        // Enable scrolling zoom
-        that.find('iframe').css("pointer-events", "auto");
-        // Handle the mouse leave event
-        that.on('mouseleave', onMapMouseleaveHandler);
-      }
-      
-      // Enable map zooming with mouse scroll when the user clicks the map
-      $('.map').on('click', onMapClickHandler);
-      </script>
+    });
+  function initMap() {
+  // do map object creation and initialization here
+  // ...
+  
+  // add a click event handler to the map object
+    GEvent.addListener(map, "click", function(overlay, latLng)
+    {
+        // display the lat/lng in your form's lat/lng fields
+        document.getElementById("latFld").value = latLng.lat();
+        document.getElementById("lngFld").value = latLng.lng();
+    });
+  }
+  
+  // Disable Google Maps scrolling
+  // See http://stackoverflow.com/a/25904582/1607849
+  // Disable scroll zooming and bind back the click event
+  
+  var onMapMouseleaveHandler = function(event) {
+    var that = $(this);
+    that.on('click', onMapClickHandler);
+    that.off('mouseleave', onMapMouseleaveHandler);
+    that.find('iframe').css("pointer-events", "none");
+  }
+  
+  var onMapClickHandler = function(event) {
+    var that = $(this);
+    // Disable the click handler until the user leaves the map area
+    that.off('click', onMapClickHandler);
+    // Enable scrolling zoom
+    that.find('iframe').css("pointer-events", "auto");
+    // Handle the mouse leave event
+    that.on('mouseleave', onMapMouseleaveHandler);
+  }
+  
+  // Enable map zooming with mouse scroll when the user clicks the map
+  $('.map').on('click', onMapClickHandler);
+</script>
