@@ -5,25 +5,6 @@ class EventsController < ApplicationController
   # GET /events
   # GET /events.json
   def index
-    # category = params[:category] || ''
-    # city = params[:city] || ''
-    # start_date = params[:start_date] || ''
-    # end_date = params[:end_date] || ''
-    # query = params[:query] || ''
-    # latitude = params[:latitude].to_f || ''
-    # longitude = params[:longitude].to_f || ''
-    # current_user_id = current_user.id || ''
-
-    # @events = Event
-    # @events = @events.the_category(category) if category.present?
-    # @events = @events.city(city) if city.present?
-    # @events = @events.start_date(start_date) if start_date.present?
-    # @events = @events.end_date(end_date) if end_date.present?
-    # @events = @events.search(query) if query.present?
-    # @events = @events.status_open(current_user_id)
-    # @events = @events.near(latitude,longitude) if latitude.present? && longitude.present?
-    # @events = @events.includes(:event_detail).reorder("created_at DESC").paginate(:page => params[:page])
-
     # Filters Events according to given parameters
     filter_params = params.slice(:category, :city, :start_date, :end_date, :search, :near)
     filter_params.merge(:status_open => current_user.id) if user_signed_in?
