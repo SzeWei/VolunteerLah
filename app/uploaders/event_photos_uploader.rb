@@ -26,7 +26,7 @@ class EventPhotosUploader < CarrierWave::Uploader::Base
   # process scale: [200, 300]
   #
   # def scale(width, height)
-  #   # do something
+  #   resize_to_fill: [width, height]
   # end
 
   # Create different versions of your uploaded files:
@@ -34,6 +34,9 @@ class EventPhotosUploader < CarrierWave::Uploader::Base
     process resize_to_fill: [150, 112]
   end
 
+  version :medium do
+    process resize_to_fill: [300, 400]
+  end
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   # def extension_whitelist

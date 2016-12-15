@@ -12,7 +12,7 @@
         </div>
 
     <% @events.each do |event| %>
-        <div class="col-lg-4 col-sm-6">
+        <div class="event col-lg-4 col-sm-6">
           <a href ="<%=event_path(event) %>"><img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt=""/></a>
             <%= event.title %> </br>
             

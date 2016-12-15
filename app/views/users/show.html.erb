@@ -103,8 +103,8 @@
         <div class="col-lg-12">
           <h3 class="page-header">Related Events</h3>
         </div>
-        <% @events.each do |event| %>
-        <div class="col-lg-4 col-sm-6">
+        <% @events_open.each do |event| %>
+        <div class="events-open col-lg-4 col-sm-6">
           <a href ="<%=event_path(event) %>"><img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt=""></a>
           <%= event.title %> </br>
           <%= event.description %></br>
@@ -115,8 +115,8 @@
         <% end %>
       </div>
     </div>
-    <%= will_paginate @events, renderer: BootstrapPagination::Rails %>
-    <%= page_entries_info @events %>
+    <%= will_paginate @events_open, renderer: BootstrapPagination::Rails %>
+    <%= page_entries_info @events_open %>
   <% end %>
 <% elsif @user.volunteer? %>
   <div class="col-lg-12 ">

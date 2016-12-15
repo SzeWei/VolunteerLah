@@ -13,9 +13,9 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
   	<% count = 0 %>
-  	<% @event.event_photos.to_a.each_with_index do |img| %>
-	    <div class="<%= count == 0 ? "item active" : "item" %>">
-	      <%= image_tag(img.url) %>
+  	<% @event.event_photos.to_a.each do |img| %>
+	    <div class="<%= count == 0 ? "item active" : "item" %>" height="400">
+	      <%= image_tag(img.url) if img.present? %>
 	      <% count += 1 %>
 	    </div>
   	<% end %>
