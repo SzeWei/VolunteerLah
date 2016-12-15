@@ -1,39 +1,7 @@
 <!-- Header Carousel -->
 <header id="myCarousel" class="carousel slide">
   <!-- Indicators -->
-  <ol class="carousel-indicators">
-    <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-    <li data-target="#myCarousel" data-slide-to="1"></li>
-    <li data-target="#myCarousel" data-slide-to="2"></li>
-  </ol>
-  <!-- Wrapper for slides -->
-  <div class="carousel-inner">
-    <div class="item active">
-      <div class="fill"><img src="img/bg.jpg"></div>
-      <div class="carousel-caption">
-        <h2>Slide 1</h2>
-      </div>
-    </div>
-    <div class="item">
-      <div class="fill"><img src="img/callout.jpg"></div>
-      <div class="carousel-caption">
-        <h2>Slide 2</h2>
-      </div>
-    </div>
-    <div class="item">
-      <div class="fill"><img src="img/portfolio-4.jpg"></div>
-      <div class="carousel-caption">
-        <h2>Slide 3</h2>
-      </div>
-    </div>
-  </div>
-  <!-- Controls -->
-  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-  <span class="icon-prev"></span>
-  </a>
-  <a class="right carousel-control" href="#myCarousel" data-slide="next">
-  <span class="icon-next"></span>
-  </a>
+  <%= render partial:"events/carousel" %>
 </header>
 <!-- Page Content -->
 <div class="container">
@@ -41,6 +9,7 @@
     <h1 class="page-header">
       <%= @event.title %>
     </h1>
+    <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary btn-block", style: "color:white" if user_signed_in? && @event.user == current_user %>
   </div>
   <div class="col-md-6">
     <div class="event-details">
