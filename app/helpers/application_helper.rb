@@ -6,4 +6,12 @@ module ApplicationHelper
 			return "display:none"
 		end
 	end
+
+	def format_date(event)
+		if event.present? && event.start_date == event.end_date
+			return event.start_date.strftime("%v (%a)")
+		else
+			return "#{event.start_date.strftime("%v (%a)")} to  #{event.end_date.strftime("%v (%a)")}"
+		end
+	end
 end
