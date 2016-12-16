@@ -1,0 +1,51 @@
+<div class="container">
+	<hr>
+	<h4 id="comments">Comments</h4>
+	<!-- New Comment Modal -->
+	<button id="image-btn" data-toggle=modal data-target=".bs-example-modal-lg">New Comment</button>
+
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  		<div class="modal-dialog modal-lg">
+    		<div class="modal-content">
+				<%= render "comments/new" %>
+			</div>
+		</div>
+	</div>
+
+		<!-- List of Comments -->
+	<div class="container">
+		<ul style="list-style: none">
+			<% @comments.each do |comment| %>
+				<li>
+					<div class="container">
+						<strong><%= "#{comment.title}" %></strong><br/>
+						<% comment.rating.times do %>
+							<span class="glyphicon glyphicon-star"></span>
+						<% end %><br/>
+						<strong>Posted by </strong><%= link_to comment.user.name, user_path(comment.user)%> on <%= comment.created_at.strftime("%d-%b-%Y") %> <br/>
+						<p>
+							<%= comment.text %>
+						</p>
+						<p style="<%= user_signed_in? && (current_user.admin? || current_user == comment.user)? "" : "" %>"> 
+							<%= link_to "Edit", edit_comment_path(comment) %> | 
+							<%= link_to "Delete", comment, method: :delete, data: {confirm: "Are you sure?"} %>
+						</p>
+						<hr>
+					</div>
+				</li>	
+			<% end %>
+		</ul>
+	</div>
+</div>
+<style>
+	#modal-dialog {
+		width: 90%;
+		padding: 5px;
+
+	}
+
+	#new_comment {
+		width: 90%;
+		padding: 10px;
+	}
+</style>
