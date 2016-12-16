@@ -16,7 +16,7 @@
       <h2>Event Details</h2>
       <p>Organization Name: <a href="<%= user_path(@organisation.user) %>"><%= @organisation.name %></a></p>
       <p>Event type: <em><%= @event.category %></em></p>
-      <p>Date: <%= @event.start_date %> to <%= @event.end_date %></p>
+      <p>Date: <%= format_date(@event) %></p>
       <p>Time: <%= @event_detail.day_time %></p>
       <p>Address:<%= @event_detail.street_address %>, <%= @event_detail.postal_code %>, <%= @event_detail.city %> <%= @event_detail.state %></p>
       <p>Contact-Person: <%= @organisation.contact_person %></p>
@@ -30,7 +30,7 @@
       <p> <%= @event.description %></p>
       <p>
         <strong>Event photos:</strong>
-        <%= image_tag @event.event_photos[0].url if @event.event_photos.present? %>
+        <%= image_tag @event.event_photos[0].medium.url if @event.event_photos.present? %>
       </p>
     </div>
   </div>
@@ -61,7 +61,8 @@
       <div class="col-lg-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            Registered Volunteers
+            Registered Volunteers <br>
+            <strong><%= @event.event_volunteers.count %> people volunteered!</strong>
           </div>
           <!-- /.panel-heading -->
           <div class="panel-body">
@@ -76,24 +77,14 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td>1</td>
-                    <td>Mark Jacob</td>
-                    <td>mark@jacob.com</td>
-                    <td>012-3456789</td>
-                  </tr>
-                  <tr>
-                    <td>2</td>
-                    <td>Jacob Thornton</td>
-                    <td>jacob@thornton.com</td>
-                    <td>011-9876543</td>
-                  </tr>
-                  <tr>
-                    <td>3</td>
-                    <td>Tom Larry</td>
-                    <td>tom@tom.com</td>
-                    <td>014-4567890</td>
-                  </tr>
+                  <% @event.event_volunteers.all.each_with_index do |volunteer, index| %>
+                    <tr>
+                      <td><%= index + 1 %></td>
+                      <td><%= volunteer.name if volunteer.name.present? %></td>
+                      <td><%= volunteer.email if volunteer.email.present? %></td>
+                      <td><%= volunteer.phone if volunteer.email.present? %></td>
+                    </tr>
+                  <% end %>
                 </tbody>
               </table>
             </div>

@@ -104,14 +104,20 @@
           <h3 class="page-header">Related Events</h3>
         </div>
         <% @events_open.each do |event| %>
-        <div class="events-open col-lg-4 col-sm-6">
-          <a href ="<%=event_path(event) %>"><img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt=""></a>
-          <%= event.title %> </br>
-          <%= event.description %></br>
-          <%= event.start_date %></br>
-          <%= event.end_date %></br>
-          <%= event.category %>
-        </div>
+        <a href ="<%=event_path(event) %>">
+          <div class="events-open col-lg-4 col-sm-6">
+            <% if event.event_photos.present? %>
+              <%= image_tag event.event_photos[0].medium.url, class: "img-responsive img-hover img-related" %>
+            <% else %>
+            <img class="img-responsive img-hover img-related" src="http://placehold.it/500x300" alt="">
+            <% end %>
+
+            <%= event.title %> </br>
+            <%= event.start_date %></br>
+            <%= event.end_date %></br>
+            <%= event.category %>
+          </div>
+        </a>
         <% end %>
       </div>
     </div>

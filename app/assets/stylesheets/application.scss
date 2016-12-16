@@ -141,16 +141,17 @@ header.carousel .fill {
 
 .carousel-inner {
     width: 100%;
+    min-height: 400px;
     max-height: 400px;
     overflow: hidden;
-    margin: 0 auto;
+    margin: auto;
 }
 
 
 .carousel-inner > .item > .fill > img {
     width: 100%;
     height: 400px;
-    margin: 0;
+    margin: auto;
     overflow: hidden;
 }
 
