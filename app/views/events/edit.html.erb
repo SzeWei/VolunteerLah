@@ -74,31 +74,31 @@
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :venue_title, class: "control-label" %>
-				      <%= u.text_field :venue_title, class: "form-control" %></br>
+				      <%= u.text_field :venue_title, class: "form-control", id: 'addr_venue_title', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :street_address, class: "control-label" %>
-				      <%= u.text_field :street_address, class: "form-control" %></br>
+				      <%= u.text_field :street_address, class: "form-control", id: 'addr_street_address', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :postal_code, class: "control-label" %>
-				      <%= u.text_field :postal_code, class: "form-control" %></br>
+				      <%= u.text_field :postal_code, class: "form-control", id: 'addr_postal_code', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :city, class: "control-label" %>
-				      <%= u.text_field :city, class: "form-control" %></br>
+				      <%= u.text_field :city, class: "form-control", id: 'addr_city', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :state, class: "control-label" %>
-				      <%= u.text_field :state, class: "form-control" %></br>
+				      <%= u.text_field :state, class: "form-control", id: 'addr_state', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -197,6 +197,43 @@
 	            }
 	        });
 	    });
+	}
+
+	function updateMap()
+	{
+		var addr_full = '';
+		addr_full += document.getElementById('addr_venue_title').value + ', ';
+		addr_full += document.getElementById('addr_street_address').value + ', ';
+		addr_full += document.getElementById('addr_postal_code').value + ', ';
+		addr_full += document.getElementById('addr_city').value + ', ';
+		addr_full += document.getElementById('addr_state').value;
+
+		geocoder.geocode({
+      'address': addr_full
+    }, function(results,status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+          changeMarkedPosition(latlng);
+        }
+        else
+        {
+          latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+          changeMarkedPosition(latlng);
+        }
+      }
+      else
+      {
+        latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+        changeMarkedPosition(latlng);
+      }
+    })
+	}
+
+	function changeMarkedPosition(latlng)
+	{
+		map.setCenter(latlng);
+		marker.setPosition(latlng);
 	}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
