@@ -29,12 +29,10 @@ id="top" class="business-header">
 	var geocoder; //geocoder tool object
 
 	//define the location of next academy
-	var next_academy_latlng = {lat: 3.135045, lng: 101.629905}
+	var next_academy_latlng = {lat: 3.135045, lng: 101.629905};
 
 	//the function that the google map api will call right after running their js script
 	function initMap() {
-
-		debugger
 	    //define the map (the part that showing the map when initMap is ran)
 	    map = new google.maps.Map(document.getElementById('map'), {
 	        center: next_academy_latlng, 
@@ -56,11 +54,11 @@ id="top" class="business-header">
 	    //when user click on map
 	    google.maps.event.addListener(map,'click',function(event) {
 	        //get latitude(lat) and longitude(lng)
-	        document.getElementById('lat').value = event.latLng.lat()
-	        document.getElementById('lng').value = event.latLng.lng()
+	        document.getElementById('lat').value = event.latLng.lat();
+	        document.getElementById('lng').value = event.latLng.lng();
 
 	        //set marker to the click position
-	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() })
+	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
 
 	        //get the address with geocoder
 	        geocoder.geocode({
@@ -74,6 +72,43 @@ id="top" class="business-header">
 	        });
 	    });
 	}
+
+	function updateMap()
+ {
+ 	var addr_full = '';
+ 	addr_full += document.getElementById('addr_venue_title').value + ', ';
+ 	addr_full += document.getElementById('addr_street_address').value + ', ';
+ 	addr_full += document.getElementById('addr_postal_code').value + ', ';
+ 	addr_full += document.getElementById('addr_city').value + ', ';
+ 	addr_full += document.getElementById('addr_state').value;
+ 
+ 	geocoder.geocode({
+      'address': addr_full
+    }, function(results,status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0]) {
+          latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+          changeMarkedPosition(latlng);
+        }
+        else
+        {
+          latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+          changeMarkedPosition(latlng);
+        }
+      }
+      else
+      {
+        latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+        changeMarkedPosition(latlng);
+      }
+    })
+ }
+ 
+ function changeMarkedPosition(latlng)
+ {
+ 	map.setCenter(latlng);
+ 	marker.setPosition(latlng);
+ }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
 async defer></script>
