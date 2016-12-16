@@ -6,6 +6,7 @@ class Event < ApplicationRecord
   accepts_nested_attributes_for :event_detail
   has_many :event_volunteers
   has_many :volunteers, through: :event_volunteers, source: :user
+  has_many :comments
   mount_uploaders :event_photos, EventPhotosUploader
   include Filterable
 

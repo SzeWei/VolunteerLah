@@ -1,0 +1,26 @@
+<%= form_for(comment, url: url) do |f| %>
+	<div class="form-group row">
+		<%= f.label "Rate this event", class: "col-xs-3 col-form-label" %>
+		<div class="col-xs-10">
+			<%= f.select :rating, (1..5), class: "form-control" %> stars
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<%= f.label :title, class: "col-xs-2 col-form-label" %>
+		<div class="col-xs-10">
+			<%= f.text_field :title, class: "form-control" %>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<%= f.label "Comment", class: "col-xs-2 col-form-label"%>
+		<div class="col-xs-10">
+			<%= f.text_area :text, class: "form-control" %>
+		</div>
+	</div>
+
+	<%= f.hidden_field :event_id, value: @event.id %>
+
+	<%= f.submit "Submit" %>
+<% end %>

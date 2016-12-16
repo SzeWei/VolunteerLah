@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 # modal#Event
   # resources :event_details
+  resources :comments
 
   get '/events/getnear', to: "events#getnear", as: 'get_near_event'
   resources :events do 
