@@ -86,18 +86,15 @@ class EventsController < ApplicationController
         # 400 = Bad Request
         format.html { redirect_to root_path }
         @status = { code: 400, error: 'Invalid category, latitude or longitude'}
-        gon.status = @status
         @event = nil
-        format.js
+        format.json
         format.html
       end
       @status = { code: 200 }
-      @events = Event.where(category: category).near(latitude.to_f, longitude.to_f).includes(:event_detail).where(status: :open).where(['Event.end_date > ?', Date.today]).all
-      gon.status = @status
-      gon.events = @events
-
+      @events = Event.where(category: category).near(latitude.to_f, longitude.to_f).includes(:event_detail).where(status: :open).where('events.end_date > ?', Date.today)
+      
       format.html
-      format.js
+      format.json
     end
   end
 

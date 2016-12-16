@@ -10,11 +10,25 @@ id="top" class="business-header">
 		</div>
 
 		<div class="col-md-6">
-
-		    <div id="map">
-
-		      
-		    </div>
+			<div class="row">
+		    <div id="map"></div>
+		  </div>
+		  <br>
+		  <div class="row">
+		    <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Event Name</th>
+                <th>From</th>
+                <th>To</th>
+              </tr>
+            </thead>
+            <tbody id="getnear">
+            </tbody>
+          </table>
+        </div> 
 		  </div>
 		</div>
 	</div>
@@ -27,6 +41,7 @@ id="top" class="business-header">
 	var map; //the map element
 	var marker; //the map marker object(?) element(?)
 	var geocoder; //geocoder tool object
+	var temp_result;
 
 	//define the location of next academy
 	var next_academy_latlng = {lat: 3.135045, lng: 101.629905};
@@ -59,6 +74,7 @@ id="top" class="business-header">
 
 	        //set marker to the click position
 	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+	        getNearEvent(latlng);
 
 	        //get the address with geocoder
 	        geocoder.geocode({
@@ -76,7 +92,7 @@ id="top" class="business-header">
 	function updateMap()
  {
  	var addr_full = '';
- 	addr_full += document.getElementById('addr_venue_title').value + ', ';
+ 	// addr_full += document.getElementById('addr_venue_title').value + ', ';
  	addr_full += document.getElementById('addr_street_address').value + ', ';
  	addr_full += document.getElementById('addr_postal_code').value + ', ';
  	addr_full += document.getElementById('addr_city').value + ', ';
@@ -89,17 +105,20 @@ id="top" class="business-header">
         if (results[0]) {
           latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
           changeMarkedPosition(latlng);
+          getNearEvent(latlng);
         }
         else
         {
           latlng = {lat: 3.27229523935188, lng: 101.570401983462};
           changeMarkedPosition(latlng);
+          getNearEvent(latlng);
         }
       }
       else
       {
         latlng = {lat: 3.27229523935188, lng: 101.570401983462};
         changeMarkedPosition(latlng);
+        getNearEvent(latlng);
       }
     })
  }
@@ -109,6 +128,38 @@ id="top" class="business-header">
  	map.setCenter(latlng);
  	marker.setPosition(latlng);
  }
+ function getNearEvent(latlng)
+	{
+		$.ajax({
+			url:'<%= get_near_event_path %>',
+			data:{
+				format: 'json',
+				category: document.getElementById('event_category').value,
+				latitude: latlng.lat,
+				longitude: latlng.lng
+			},
+			error: function() {
+      	console.log('AJAX error');
+   		},
+   		success: function(data) {
+   			temp_result = data;
+
+   			var elements = document.getElementsByClassName('repetitive');
+		    while(elements.length > 0){
+		        elements[0].parentNode.removeChild(elements[0]);
+		    }
+
+   			for (i = 0; i < data.events.length; i++) {
+   				$('#getnear').append("<tr class='repetitive' ><td>" + (i + 1) + "</td><td>" + data.events[i].title + "</td><td>" + data.events[i].start_date +"</td><td>" + data.events[i].end_date + "</td></tr>");
+   			}
+
+
+   			//add any javascript that change the html here
+   			// data.events .title
+   			// title start_date end_date
+   		}
+		})
+	}
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
 async defer></script>
