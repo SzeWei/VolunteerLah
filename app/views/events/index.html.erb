@@ -20,8 +20,7 @@
                     <img class="img-circle img-responsive img-center" src="http://placehold.it/200x200" alt=""/>
                 <% end %>
                 <%= event.title %> </br>
-                <%= event.start_date %></br>
-                <%= event.end_date %></br>
+                <%= format_date(event) %></br>
                 <%= event.category %>
             </div>
         </a>
