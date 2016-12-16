@@ -31,13 +31,13 @@
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= f.label :start_date, class: "control-label" %>
-      <%= f.date_select :start_date, class: "form-control" %></br>
+      <%= f.text_field :start_date, class: "form-control", id: "from"  %></br>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= f.label :end_date, class: "control-label" %>
-      <%= f.date_select :end_date, class: "form-control" %></br>
+      <%= f.text_field :end_date, class: "form-control", id: "to"  %></br>
     </div>
   </div>
   <div class="form-group">
@@ -70,31 +70,31 @@
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= u.label :venue_title, class: "control-label" %>
-      <%= u.text_field :venue_title, class: "form-control" %></br>
+      <%= u.text_field :venue_title, class: "form-control", id: 'addr_venue_title', onblur: 'updateMap()' %></br>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= u.label :street_address, class: "control-label" %>
-      <%= u.text_field :street_address, class: "form-control" %></br>
+      <%= u.text_field :street_address, class: "form-control", id: 'addr_street_address', onblur: 'updateMap()' %></br>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= u.label :postal_code, class: "control-label" %>
-      <%= u.text_field :postal_code, class: "form-control" %></br>
+      <%= u.text_field :postal_code, class: "form-control", id: 'addr_postal_code', onblur: 'updateMap()' %></br>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= u.label :city, class: "control-label" %>
-      <%= u.text_field :city, class: "form-control" %></br>
+      <%= u.text_field :city, class: "form-control", id: 'addr_city', onblur: 'updateMap()' %></br>
     </div>
   </div>
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= u.label :state, class: "control-label" %>
-      <%= u.text_field :state, class: "form-control" %></br>
+      <%= u.text_field :state, class: "form-control", id: 'addr_state', onblur: 'updateMap()' %></br>
     </div>
   </div>
   <div class="form-group">
@@ -131,4 +131,41 @@
   </div>
   <% end %>
 </div>
+
+<script>
+  $( function() {
+    var from = $( "#from" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+</script>
+
+
 

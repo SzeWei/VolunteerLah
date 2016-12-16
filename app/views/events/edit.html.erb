@@ -3,7 +3,7 @@
 <%= form_for(@event) do |f| %>
   <% if @event.errors.any? %>
   <div id="error_explanation">
-    <h2><%= pluralize(event.errors.count, "error") %> prohibited this event from being saved:</h2>
+    <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
     <ul>
       <% @event.errors.full_messages.each do |message| %>
       <li><%= message %></li>
@@ -35,13 +35,13 @@
 			  <div class="form-group">
 			    <div class="col-md-10 col-md-offset-1">
 			      <%= f.label :start_date, class: "control-label" %>
-			      <%= f.date_select :start_date, class: "form-control" %></br>
+			      <%= f.text_field :start_date, class: "form-control", id: "from" %></br>
 			    </div>
 			  </div>
 			  <div class="form-group">
 			    <div class="col-md-10 col-md-offset-1">
 			      <%= f.label :end_date, class: "control-label" %>
-			      <%= f.date_select :end_date, class: "form-control" %></br>
+			      <%= f.text_field :end_date, class: "form-control", id: "to" %></br>
 			    </div>
 			  </div>
 			  <div class="form-group">
@@ -74,31 +74,31 @@
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :venue_title, class: "control-label" %>
-				      <%= u.text_field :venue_title, class: "form-control" %></br>
+				      <%= u.text_field :venue_title, class: "form-control", id: 'addr_venue_title', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :street_address, class: "control-label" %>
-				      <%= u.text_field :street_address, class: "form-control" %></br>
+				      <%= u.text_field :street_address, class: "form-control", id: 'addr_street_address', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :postal_code, class: "control-label" %>
-				      <%= u.text_field :postal_code, class: "form-control" %></br>
+				      <%= u.text_field :postal_code, class: "form-control", id: 'addr_postal_code', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :city, class: "control-label" %>
-				      <%= u.text_field :city, class: "form-control" %></br>
+				      <%= u.text_field :city, class: "form-control", id: 'addr_city', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
 				    <div class="col-md-10 col-md-offset-1">
 				      <%= u.label :state, class: "control-label" %>
-				      <%= u.text_field :state, class: "form-control" %></br>
+				      <%= u.text_field :state, class: "form-control", id: 'addr_state', onblur: 'updateMap()' %></br>
 				    </div>
 				  </div>
 				  <div class="form-group">
@@ -198,8 +198,80 @@
 	        });
 	    });
 	}
+
+	function updateMap()
+ {
+ 	var addr_full = '';
+ 	addr_full += document.getElementById('addr_venue_title').value + ', ';
+ 	addr_full += document.getElementById('addr_street_address').value + ', ';
+ 	addr_full += document.getElementById('addr_postal_code').value + ', ';
+ 	addr_full += document.getElementById('addr_city').value + ', ';
+ 	addr_full += document.getElementById('addr_state').value;
+ 
+ 	geocoder.geocode({
+       'address': addr_full
+     }, function(results,status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+         if (results[0]) {
+           latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+           changeMarkedPosition(latlng);
+         }
+         else
+         {
+           latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+           changeMarkedPosition(latlng);
+         }
+       }
+       else
+       {
+         latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+         changeMarkedPosition(latlng);
+       }
+     })
+ }
+ 
+ function changeMarkedPosition(latlng)
+ {
+ 	map.setCenter(latlng);
+ 	marker.setPosition(latlng);
+ }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
 async defer></script>
+
+<script>
+  $( function() {
+    var from = $( "#from" )
+        .datepicker({
+          defaultDate: "+1w",
+          changeMonth: true,
+          numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
+        })
+        .on( "change", function() {
+          to.datepicker( "option", "minDate", getDate( this ) );
+        }),
+      to = $( "#to" ).datepicker({
+        defaultDate: "+1w",
+        changeMonth: true,
+        numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
+      })
+      .on( "change", function() {
+        from.datepicker( "option", "maxDate", getDate( this ) );
+      });
+ 
+    function getDate( element ) {
+      var date;
+      try {
+        date = $.datepicker.parseDate( dateFormat, element.value );
+      } catch( error ) {
+        date = null;
+      }
+ 
+      return date;
+    }
+  } );
+  </script>
 
 
