@@ -43,7 +43,7 @@
   <div class="form-group">
     <div class="col-md-10 col-md-offset-1">
       <%= f.label "Choose a category", class: "control-label" %>
-      <%= f.select :category, Event.categories.keys.to_a.map {|r| [r.humanize, r]}, class: "form-control" %></br>
+      <%= f.select :category, Event.categories.keys.to_a.map {|r| [r.humanize, r]}, class: "form-control", id: 'event_category' %></br>
     </div>
   </div>
   <!--  <div class="form-group">
