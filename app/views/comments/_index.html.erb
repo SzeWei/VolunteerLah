@@ -3,7 +3,7 @@
 	<h4 id="comments">Comments</h4>
 	<!-- New Comment Modal -->
 	<button id="image-btn" data-toggle=modal data-target=".bs-example-modal-lg">New Comment</button>
-
+	<hr>
 	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   		<div class="modal-dialog modal-lg">
     		<div class="modal-content">
@@ -17,7 +17,7 @@
 		<ul style="list-style: none">
 			<% @comments.each do |comment| %>
 				<li>
-					<div class="container">
+					<div class="comment container">
 						<strong><%= "#{comment.title}" %></strong><br/>
 						<% comment.rating.times do %>
 							<span class="glyphicon glyphicon-star"></span>
@@ -37,15 +37,3 @@
 		</ul>
 	</div>
 </div>
-<style>
-	#modal-dialog {
-		width: 90%;
-		padding: 5px;
-
-	}
-
-	#new_comment {
-		width: 90%;
-		padding: 10px;
-	}
-</style>
