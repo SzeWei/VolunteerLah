@@ -42,6 +42,7 @@ id="top" class="business-header">
 	var marker; //the map marker object(?) element(?)
 	var geocoder; //geocoder tool object
 	var temp_result;
+  var small_markers = [];
 
 	//define the location of next academy
 	var next_academy_latlng = {lat: 3.135045, lng: 101.629905};
@@ -74,7 +75,7 @@ id="top" class="business-header">
 
 	        //set marker to the click position
 	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
-	        getNearEvent(latlng);
+	        getNearEvent({ lat: event.latLng.lat(), lng: event.latLng.lng() });
 
 	        //get the address with geocoder
 	        geocoder.geocode({
@@ -148,9 +149,25 @@ id="top" class="business-header">
 		    while(elements.length > 0){
 		        elements[0].parentNode.removeChild(elements[0]);
 		    }
+        for (var i = 0; i < small_markers.length; i++ ) {
+          small_markers[i].setMap(null);
+        }
+        small_markers = [];
 
    			for (i = 0; i < data.events.length; i++) {
    				$('#getnear').append("<tr class='repetitive' ><td>" + (i + 1) + "</td><td>" + data.events[i].title + "</td><td>" + data.events[i].start_date +"</td><td>" + data.events[i].end_date + "</td></tr>");
+          var small_marker = new google.maps.Marker({
+            icon: {
+              path: google.maps.SymbolPath.CIRCLE,
+              scale: 4,
+              fillColor: '#00FFFF',
+              fillOpacity: 1
+            },
+            position: {lat: parseFloat(data.events[i].latitude), lng: parseFloat(data.events[i].longitude)},
+            map: map
+          });
+
+          small_markers.push(small_marker);
    			}
 
 

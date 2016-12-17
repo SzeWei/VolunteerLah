@@ -10,7 +10,7 @@ unless @events.empty?
       json.end_date event.end_date
       json.category event.category
       json.latitude event.event_detail.latitude
-      json.logitude event.event_detail.longitude
+      json.longitude event.event_detail.longitude
     end
   end
 end 
