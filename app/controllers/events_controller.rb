@@ -21,7 +21,7 @@ class EventsController < ApplicationController
     @event_detail = @event.event_detail
     @event_volunteer = @event.event_volunteers.new
     @organisation = @event.user.organisation_profile if @event.user.present?
-    @comments = @event.comments.all
+    @comments = @event.comments.all.order("created_at DESC")
     @comment = @event.comments.new
   end
 
