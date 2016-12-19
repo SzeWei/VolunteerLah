@@ -41,6 +41,7 @@ id="top" class="business-header">
 	var map; //the map element
 	var marker; //the map marker object(?) element(?)
 	var geocoder; //geocoder tool object
+	var circle; //google map circle
 	var temp_result;
 	var small_markers = [];
 
@@ -61,6 +62,18 @@ id="top" class="business-header">
 	        map: map
 	    });
 
+	    //define and create a circle around the marker
+    	circle = new google.maps.Circle({
+        strokeColor: '#191970',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#191970',
+        fillOpacity: 0.35,
+        map: map,
+        center: next_academy_latlng,
+        radius: 5000 //this value is in meter
+    });
+
 	    //the function that set the initial zoom of the map
 	    map.setZoom(8);
 
@@ -76,6 +89,10 @@ id="top" class="business-header">
 	        //set marker to the click position
 	        marker.setPosition({ lat: event.latLng.lat(), lng: event.latLng.lng() });
 	        getNearEvent({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+
+	        //change the circle center to the click position
+        	circle.setCenter({ lat: event.latLng.lat(), lng: event.latLng.lng() });
+
 
 	        //get the address with geocoder
 	        geocoder.geocode({

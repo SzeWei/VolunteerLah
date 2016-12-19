@@ -27,6 +27,11 @@
               <div class="container">
                 <div class="col-md-5">
                   <div class="event-details">
+                    <div class="event-description">
+                      <h2>Organisation Description</h2>
+                      <p><%= @user.organisation_profile.org_description %></p>
+                    </div>
+                    </br>
                     <h2>Contact US!</h2>
                     <p><%="Website: " if @user.organisation_profile.website.present?%> <a href="<%= @user.organisation_profile.website %>"><%= @user.organisation_profile.name if @user.organisation_profile.website.present? %></a></p>
                     <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
@@ -39,12 +44,9 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="event-description">
-                    <h2>Organisation Description</h2>
-                    <p><%= @user.organisation_profile.org_description %></p>
-                  </div>
+                  
                   <div class="address">
-                    <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
+                    <p><h3><strong>Address: </strong></h3><%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></p>
                     <div id="map"></div>
                   </div>
                 </div>

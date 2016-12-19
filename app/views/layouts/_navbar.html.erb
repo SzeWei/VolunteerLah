@@ -23,19 +23,23 @@
               </li>
               <li>
                  <a href="/#aboutus">About Us</a>
-              </li>            
+              </li>     
+            </ul>       
               <!-- Trigger the modal with a button -->
-              <% unless user_signed_in? %>
+            <% unless user_signed_in? %>
+            <ul class="nav navbar-nav navbar-right" style="margin-right: 25px;">
                 <li>
-                   <a data-toggle="modal" data-target="#myModal" href="">Login/Register</a>
+                  <a data-toggle="modal" data-target="#myModal" href="">Login/Register</a>
                 </li>
               <% end %>
+            </ul>
+            <ul class="nav navbar-nav">
               <% if user_signed_in? %>
                 <% if current_user.organisation? %>
-                  <li> <%= link_to "Create Event", new_event_path %></li>
+                    <li> <%= link_to "Create Event", new_event_path %></li>
                 <% end %>
-                <li> <%= link_to "My Profile", current_user %></li>
-                <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+                    <li> <%= link_to "My Profile", current_user %></li>
+                    <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
               <% end %>
             </ul> 
        

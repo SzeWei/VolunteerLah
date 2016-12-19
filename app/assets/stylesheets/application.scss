@@ -41,6 +41,8 @@ $colHighlight: #ffbbbc;
 background-color: $bgDefault;
 border-color: $bgHighlight;
 .navbar-brand {
+    margin-left: 150px;
+    margin-top: -5px;
     color: $colDefault;
     &:hover, &:focus {
         color: $colHighlight;
@@ -51,6 +53,7 @@ border-color: $bgHighlight;
     color: $colDefault;
 }
 .navbar-nav {
+    font-size: 15px;
     > li {
         > a {
             color: $colDefault;
@@ -251,5 +254,9 @@ header.carousel .fill {
     color: #fff;
     background-color: #1CA347 ;
     border-color: #1CA347 ;
+}
+
+.glyphicon-search {
+    color: white;
 }
 

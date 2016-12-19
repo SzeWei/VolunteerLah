@@ -22,7 +22,7 @@
       <p>Contact-Person: <%= @organisation.contact_person %></p>
       <p>Contact Number: <%= @organisation.phone %></p>
       <p>Email: <%= @organisation.email %></p>
-      <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>"><%= @event.user.email %></a></p>
+      <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>"><%= @organisation.name %></a></p>
     </div>
   </div>
   <div class="col-md-6">
@@ -104,16 +104,15 @@
   <%= render partial:"comments/index" %>
 </div>
 
-<!-- jQuery -->
-<script src="js/jquery.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+
 <!-- Script to Activate the Carousel -->
 <script>
   $('.carousel').carousel({
     interval: 5000 //changes the speed
   })
-  
+</script>
+
+<script>  
   //set placeholder variables
   var map; //the map element
   var marker; //the map marker object(?) element(?)
@@ -164,5 +163,6 @@
       // });
   }
 </script>
+
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBOu5_6K5qsQqXlySNAMGy7j9WPkRZZXrg&callback=initMap"
 async defer></script>
