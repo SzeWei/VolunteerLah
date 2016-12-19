@@ -11,7 +11,8 @@ module VolunteerLah
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+    config.autoload_paths += %W(#{config.root}/lib)
   end
 end
 
-Geocoder.configure(:timeout => 15) 
+Geocoder.configure(:timeout => 15)
