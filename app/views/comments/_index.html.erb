@@ -13,14 +13,11 @@
 	</div>
 
 		<!-- List of Comments -->
-	<div class="container">
-		<ul style="list-style: none">
 			<% @comments.each do |comment| %>
-				<li>
-					<div class="comment container">
+					<div class="comment">
 						<strong><%= "#{comment.title}" %></strong><br/>
 						<% comment.rating.times do %>
-							<span class="glyphicon glyphicon-star"></span>
+							<span class="glyphicon glyphicon-star gold"></span>
 						<% end %><br/>
 						<strong>Posted by </strong><%= link_to comment.user.name, user_path(comment.user)%> on <%= comment.created_at.strftime("%d-%b-%Y") %> <br/>
 						<p>
@@ -30,10 +27,8 @@
 							<%= link_to "Edit", edit_comment_path(comment) %> | 
 							<%= link_to "Delete", comment, method: :delete, data: {confirm: "Are you sure?"} %>
 						</p>
-						<hr>
 					</div>
-				</li>	
+						<hr>
 			<% end %>
-		</ul>
-	</div>
+
 </div>

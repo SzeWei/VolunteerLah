@@ -253,12 +253,14 @@ header.carousel .fill {
     color:red;
 }
 
-// .btn-primary, .btn-primary:visited {
-//   background-color: #bdd3ff;
-//   border-color: #bdd3ff;
-// }
+.gold {
+    color: gold;
+}
 
-// .btn-primary:hover, .btn-primary:active {
-//   background-color: #4264A9;
-//   border-color: #4264A9;
-// }
+.profile-header {
+    display: flex;
+    align-items: center;
+    .profile-name {
+        margin-left: 50px;
+    }
+}
