@@ -8,7 +8,7 @@
             <div class="profile-header">
               <div class="profile-avatar">
                 <div class="useravatar" style="margin-top: 20px; margin-bottom: 20px;">
-                   <img class="img-circle" alt="" src="<%= @user.organisation_profile.org_photos[0].thumb %>">
+                   <img class="img-circle" alt="" src="<%= @user.organisation_profile.org_photos[0].thumb if @user.organisation_profile.org_photos.present? %>">
                 </div>
               </div>
               <div class="profile-name"> 
@@ -94,7 +94,7 @@
         <div class="profile-header">
           <div class="profile-avatar">
             <div class="useravatar" style="margin-top: 20px; margin-bottom: 20px;">
-              <img class="img-circle" alt="" src="<%= @user.organisation_profile.org_photos[0].thumb %>">
+              <img class="img-circle" alt="" src="<%= @user.organisation_profile.org_photos[0].thumb if @user.organisation_profile.org_photos.present? %>">
             </div>
           </div>
           <div class="profile-name">
