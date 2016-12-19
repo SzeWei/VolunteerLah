@@ -1,9 +1,9 @@
-<div id="myCarousel" class="carousel slide" data-ride="carousel">
+<div id="myCarousel" class="carousel slide" data-ride="carousel" style="object-fit: cover">
   <!-- Indicators -->
   <ol class="carousel-indicators">
     <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-  	<% n = 1 %>
-  	<% max = @event.event_photos.count %>
+    <% n = 1 %>
+    <% max = @event.event_photos.count %>
     <% while n < max do %> 
       <li data-target="#myCarousel" data-slide-to=<%= n %>></li>
       <% n += 1 %>
@@ -12,13 +12,13 @@
 
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
-  	<% count = 0 %>
-  	<% @event.event_photos.to_a.each do |img| %>
-	    <div class="<%= count == 0 ? "item active" : "item" %>" height="400">
-	      <%= image_tag(img.url) if img.present? %>
-	      <% count += 1 %>
-	    </div>
-  	<% end %>
+    <% count = 0 %>
+    <% @event.event_photos.to_a.each do |img| %>
+      <div class="<%= count == 0 ? "item active" : "item" %>" height="400">
+        <%= image_tag(img.url) if img.present? %>
+        <% count += 1 %>
+      </div>
+    <% end %>
   </div>
 
   <!-- Left and right controls -->

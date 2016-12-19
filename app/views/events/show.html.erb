@@ -9,9 +9,10 @@
     <h1 class="page-header">
       <%= @event.title %>
     </h1>
-    <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary btn-block", style: "color:white" if user_signed_in? && @event.user == current_user %>
+     <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary btn-block", style: "color:white" if user_signed_in? && @event.user == current_user %> 
+
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6" style="margin-top: 120px">
     <div class="event-details">
       <h2>Event Details</h2>
       <p>Organization Name: <a href="<%= user_path(@organisation.user) %>"><%= @organisation.name %></a></p>
@@ -24,7 +25,7 @@
       <p>Email: <%= @organisation.email %></p>
     </div>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-6" style="margin-top: 120px">
     <div class="event-description">
       <h2>Event Description</h2>
       <p> <%= @event.description %></p>
@@ -37,10 +38,9 @@
 </div>
 </br>
 <!-- Map -->
-<hr>
-<div class="container">
-  <div class="col-lg-12">
-    <div class="row">
+<div class="container" >
+  <div class="col-lg-12" >
+    <div class="row" style="width: 830px">
       <div class="col-md-8">
         <div id="map"></div>  
       </div>

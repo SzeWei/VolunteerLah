@@ -1,3 +1,10 @@
+<head>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+      <!-- Custom CSS -->
+  <link href="css/business-frontpage.css" rel="stylesheet">
+</head>
+
 <%= form_for(event) do |f| %>
   <% if event.errors.any? %>
   <div id="error_explanation">
@@ -11,41 +18,42 @@
 <% end %>
 
 
-    
+  
 <div class="well well-sm">
-  <form class="form-horizontal" method="post">
-  <fieldset>
-  <legend class="text-center panel-body">Create Event</legend>
-  <div class="form-group">
-    <div class="col-md-10 col-md-offset-1">
-      <%= f.label :title, class: "control-label" %>
-      <%= f.text_field :title, class: "form-control" %></br>
+    <form class="form-horizontal" method="post">
+    <fieldset>
+    <legend class="text-center panel-body">Create Event</legend>
+    <div class="form-group">
+      <div class="col-md-10 col-md-offset-1">
+        <%= f.label :title, class: "control-label" %>
+        <%= f.text_field :title, class: "form-control" %></br>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-10 col-md-offset-1">
-      <%= f.label :description, class: "control-label" %>
-      <%= f.text_area :description, class: "form-control", rows: "10"%></br>
+    <div class="form-group">
+      <div class="col-md-10 col-md-offset-1">
+        <%= f.label :description, class: "control-label" %>
+        <%= f.text_area :description, class: "form-control", rows: "10"%></br>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-10 col-md-offset-1">
-      <%= f.label :start_date, class: "control-label" %>
-      <%= f.text_field :start_date, class: "form-control", id: "from"  %></br>
+    <div class="form-group">
+      <div class="col-md-10 col-md-offset-1">
+        <%= f.label :start_date, class: "control-label" %>
+        <%= f.text_field :start_date, class: "form-control", id: "from"  %></br>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-10 col-md-offset-1">
-      <%= f.label :end_date, class: "control-label" %>
-      <%= f.text_field :end_date, class: "form-control", id: "to"  %></br>
+    <div class="form-group">
+      <div class="col-md-10 col-md-offset-1">
+        <%= f.label :end_date, class: "control-label" %>
+        <%= f.text_field :end_date, class: "form-control", id: "to"  %></br>
+      </div>
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-md-10 col-md-offset-1">
-      <%= f.label "Choose a category", class: "control-label" %>
-      <%= f.select :category, Event.categories.keys.to_a.map {|r| [r.humanize, r]}, class: "form-control", id: 'event_category' %></br>
+    <div class="form-group">
+      <div class="col-md-10 col-md-offset-1">
+        <%= f.label "Choose a category", class: "control-label" %>
+        <%= f.select :category, Event.categories.keys.to_a.map {|r| [r.humanize, r]}, class: "form-control", id: 'event_category' %></br>
+      </div>
     </div>
-  </div>
+ 
   <!--  <div class="form-group">
     < %= f.label :user %>
     < %= f.hidden_field :user %>
@@ -126,6 +134,9 @@
   </div>
   <% end %>
 </div>
+</fieldset>
+</form>
+
 
 <script>
   $( function() {

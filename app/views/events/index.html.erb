@@ -1,19 +1,59 @@
 <!-- <p id="notice"><%= notice %></p>
  -->
-<div class="container">
+<div id="myCarousel" class="carousel slide">
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill"><img style="object-fit: cover" src="/assets/4fwrykiswfk-juan-ignacio-tapia.jpg" class="image"></div>
+            <div class="carousel-caption">
+                <h2>Help People</h2>
+            </div>
+        </div>
+        <div class="item">
+            <div class="fill"><img style="object-fit: cover" src="/assets/apz-nfr0nlq-jens-johnsson.jpg" class="image"></div>
+            <div class="carousel-caption">
+                <h2>Save The World</h2>
+            </div>
+        </div>
+        <div class="item">
+            <div class="fill"><img style="object-fit: cover" src="/assets/icyzmdkcgz0-maxime-bhm.jpg" class="image"></div>
+            <div class="carousel-caption">
+                <h2>You're Our Only Hope</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="icon-next"></span>
+    </a>
+</div>
+
+<div class="container" style="margin-top: 20px">
 
         <div class="row">
             <div class="col-lg-12">
                 <h1 class="page-header">Events
-                    <small>Volunteer NOW LAH!</small>
+                    <small>volunteer</small>
                 </h1>
                 <%= render partial: "home/form" %>
             </div>
         </div>
 
+<center>
     <% @events.each do |event| %>
         <a href ="<%=event_path(event) %>">
-            <div class="event col-lg-4 col-sm-6">
+            <div class="event col-lg-4 col-sm-6" style="margin-top: 20px">
                 <% if event.event_photos.present? %>
                     <%= image_tag event.event_photos[0].thumb.url, class: "img-circle img-responsive img-center"  %>
                 <% else %>
@@ -29,5 +69,5 @@
     <%= page_entries_info @events %>
 </div>
 <br>
-
+</center>
 

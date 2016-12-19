@@ -1,121 +1,123 @@
-<body>
-    <header id="myCarousel" class="carousel slide">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-          <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-          <li data-target="#myCarousel" data-slide-to="1"></li>
-          <li data-target="#myCarousel" data-slide-to="2"></li>
-      </ol>
+<!DOCTYPE>
+<html>
+<head>
+<link href="css/bootstrap.min.css" rel="stylesheet">
 
-      <!-- Wrapper for slides -->
-      <div class="carousel-inner">
-          <div class="item active">
-              <div class="fill"><img src="/assets/michelangelo-71282.jpg"></div>
-              <div class="carousel-caption">
-                  <h2>Help People</h2>
-              </div>
+    <!-- Custom CSS -->
+<link href="css/business-frontpage.css" rel="stylesheet">
+</head>
+<body>
+  
+   
+  <div id="myCarousel" class="carousel slide" >
+    
+    <!-- Indicators -->
+    <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+    </ol>
+
+    <!-- Wrapper for slides -->
+    <div class="carousel-inner">
+        <div class="item active">
+            <div class="fill"><img style="object-fit: cover" src="/assets/4fwrykiswfk-juan-ignacio-tapia.jpg" class="image"></div>
+            <div class="carousel-caption">
+                <h2>Help People</h2>
+            </div>
+        </div>
+        <div class="item">
+            <div class="fill"><img style="object-fit: cover" src="/assets/apz-nfr0nlq-jens-johnsson.jpg" class="image"></div>
+            <div class="carousel-caption">
+                <h2>Save The World</h2>
+            </div>
+        </div>
+        <div class="item">
+            <div class="fill"><img style="object-fit: cover" src="/assets/icyzmdkcgz0-maxime-bhm.jpg" class="image"></div>
+            <div class="carousel-caption">
+                <h2>You're Our Only Hope</h2>
+            </div>
+        </div>
+    </div>
+   
+    <!-- Controls -->
+    <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+      <span class="icon-prev"></span>
+    </a>
+    <a class="right carousel-control" href="#myCarousel" data-slide="next">
+      <span class="icon-next"></span>
+    </a>
+    
+  </div>
+  
+  <!-- Page Content -->
+  <div class="container">
+
+     <%= render partial: "home/form" %>
+
+     <hr class="hr">
+      
+      <div class="row">
+         <%=link_to do %>
+          <div class="col-sm-4">
+              <%= image_tag("poor-1775239_1280.jpg", class: "img-responsive img-thumbnail img-circle",)  %>
+              <h2>Homeless</h2>
+              <p> The world of the homeless seems very far from yours but in some ways it is quite near. For any of us, the loss of a job, the death of a spouse or a child or a severe physical disability could be the route to total despair. Struck by personal tragedies, the people in shelters across America, have lost their homes and been deserted by the families and friends they once had. What can you do to help them?</p>
           </div>
-          <div class="item">
-              <div class="fill"><img src="/assets/kid-674516.jpg" ></div>
-              <div class="carousel-caption">
-                  <h2>Save The World</h2>
-              </div>
+          <div class="col-sm-4">
+              <%= image_tag("mrs-1684465_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
+              <h2>Elderly</h2>
+              <p>There are lots of ways you can do your bit to help lonely or socially isolated elderly people in your community. The person you're helping will reap health benefits, and you'll find you will as well. Volunteering for an organisation that supports older people is a key way of helping a lonely or socially isolated older person. But a simple friendly chat or phone call can make all the difference, too.</p>
           </div>
-          <div class="item">
-              <div class="fill"><img src="/assets/michelangelo-71282.jpg"  ></div>
-              <div class="carousel-caption">
-                  <h2>You're Our Only Hope</h2>
-              </div>
+          <div class="col-sm-4">
+              <%= image_tag("dog-1705124_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
+              <h2>Animals</h2>
+              <p>All of us can make a difference for animals in our everyday lives, whether it's by adopting a pet, choosing products not tested on animals, eating a humane diet, or engaging your community in animal protection issues. With so many widespread problems facing animals, it takes all of our collective efforts to confront these cruelties and change things for the better.</p>
+          </div>
+          <% end %>
+      </div>
+      
+
+      <hr>
+
+      <div class="row" >
+          <div class="col-sm-8" id="aboutus" style="margin-top: 50px">
+              <h2>About Us</h2>
+              <p>We believe everyone should have the chance to make a difference. That's why we make it easy for good people and good causes to connect. We've connected millions of people with a great place to volunteer and helped tens of thousands of organizations better leverage volunteers to create real impact.</p>
+              <p>We also offer corporate social responsibilty solutions. Helping your business and employees take part in helping the needs of the many.</p>
+          </div>
+
+            <!-- Button -->
+         
+          
+          <div class="col-sm-4" style="margin-top: 50px">
+              <h2>Contact Us</h2>
+              <address>
+                  <strong>Start Bootstrap</strong>
+                  <br>3481 Melrose Place
+                  <br>Beverly Hills, CA 90210
+                  <br>
+              </address>
+              <address>
+                  <abbr title="Phone">P:</abbr>(123) 456-7890
+                  <br>
+                  <abbr title="Email">E:</abbr> <a href="mailto:#">info@vollah.com</a>
+              </address>
           </div>
       </div>
-
-      <!-- Controls -->
-      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-        <span class="icon-prev"></span>
-      </a>
-      <a class="right carousel-control" href="#myCarousel" data-slide="next">
-        <span class="icon-next"></span>
-      </a>
-    </header>
-
-    <hr>
-
-    <hr>
+      <!-- /.row -->
+      <hr>
+  </div>
+  <html>
     
-    <!-- Page Content -->
-    <div class="container">
-
-
-       <%= render partial: "home/form" %>
-        
-        <div class="row">
-           <%=link_to  do %>
-            <div class="col-sm-4">
-                <%= image_tag("poor-1775239_1280.jpg", class: "img-responsive img-thumbnail img-circle",)  %>
-                <h2>Homeless</h2>
-                <p> The world of the homeless seems very far from yours but in some ways it is quite near. For any of us, the loss of a job, the death of a spouse or a child or a severe physical disability could be the route to total despair. Struck by personal tragedies, the people in shelters across America, have lost their homes and been deserted by the families and friends they once had. What can you do to help them?</p>
-            </div>
-            <div class="col-sm-4">
-                <%= image_tag("mrs-1684465_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
-                <h2>Elderly</h2>
-                <p>There are lots of ways you can do your bit to help lonely or socially isolated elderly people in your community. The person you're helping will reap health benefits, and you'll find you will as well. Volunteering for an organisation that supports older people is a key way of helping a lonely or socially isolated older person. But a simple friendly chat or phone call can make all the difference, too.</p>
-            </div>
-            <div class="col-sm-4">
-                <%= image_tag("dog-1705124_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
-                <h2>Animals</h2>
-                <p>All of us can make a difference for animals in our everyday lives, whether it's by adopting a pet, choosing products not tested on animals, eating a humane diet, or engaging your community in animal protection issues. With so many widespread problems facing animals, it takes all of our collective efforts to confront these cruelties and change things for the better.</p>
-            </div>
-            <% end %>
-        </div>
-        
-
-        <hr>
-
-        <div class="row">
-            <div class="col-sm-8" id="aboutus">
-                <h2>About Us</h2>
-                <p>We believe everyone should have the chance to make a difference. That's why we make it easy for good people and good causes to connect. We've connected millions of people with a great place to volunteer and helped tens of thousands of organizations better leverage volunteers to create real impact.</p>
-                <p>We also offer corporate social responsibilty solutions. Helping your business and employees take part in helping the needs of the many.</p>
-            </div>
-
-              <!-- Button -->
-           
-            
-            <div class="col-sm-4">
-                <h2>Contact Us</h2>
-                <address>
-                    <strong>Start Bootstrap</strong>
-                    <br>3481 Melrose Place
-                    <br>Beverly Hills, CA 90210
-                    <br>
-                </address>
-                <address>
-                    <abbr title="Phone">P:</abbr>(123) 456-7890
-                    <br>
-                    <abbr title="Email">E:</abbr> <a href="mailto:#">info@vollah.com</a>
-                </address>
-            </div>
-        </div>
-        <!-- /.row -->
-        <hr>
-       
-       
-
-    </div>
-    <!-- /.container -->
-
-    <!-- jQuery -->
-   <!-- jQuery -->
-  <script src="js/jquery.js"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
+   
 
   <!-- Script to Activate the Carousel -->
   <script>
-  $('.carousel').carousel({
-    interval: 5000 //changes the speed
-  })
+    $('.carousel').carousel({
+      interval: 5000 //changes the speed
+    })
+ 
 
   </script>
 </body>
