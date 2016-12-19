@@ -6,33 +6,36 @@
 <!-- Page Content -->
 <div class="container">
   <div class="row">
-    <h1 class="page-header">
-      <%= @event.title %>
-    </h1>
-    <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary btn-block", style: "color:white" if user_signed_in? && @event.user == current_user %>
-  </div>
-  <div class="col-md-6">
-    <div class="event-details">
-      <h2>Event Details</h2>
-      <p>Organization Name: <a href="<%= user_path(@organisation.user) %>"><%= @organisation.name %></a></p>
-      <p>Event type: <em><%= @event.category %></em></p>
-      <p>Date: <%= format_date(@event) %></p>
-      <p>Time: <%= @event_detail.day_time %></p>
-      <p>Address:<%= @event_detail.street_address %>, <%= @event_detail.postal_code %>, <%= @event_detail.city %> <%= @event_detail.state %></p>
-      <p>Contact-Person: <%= @organisation.contact_person %></p>
-      <p>Contact Number: <%= @organisation.phone %></p>
-      <p>Email: <%= @organisation.email %></p>
-      <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>" target="_blank"><%= @organisation.name %></a></p>
+    <div class="col-sm-12"> 
+      <h1 class="page-header">
+        <%= @event.title %>
+      </h1>
+      <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary btn-block", style: "color:white" if user_signed_in? && @event.user == current_user %>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="event-description">
-      <h2>Event Description</h2>
-      <p> <%= @event.description %></p>
-      <p>
-        <strong>Event photos:</strong>
-        <%= image_tag @event.event_photos[0].medium.url if @event.event_photos.present? %>
-      </p>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="event-details">
+        <h2>Event Description</h2>
+        <p> <%= @event.description %></p>
+        <h2>Event Details</h2>
+        <p>Organization Name: <a href="<%= user_path(@organisation.user) %>"><%= @organisation.name %></a></p>
+        <p>Event type: <em><%= @event.category %></em></p>
+        <p>Date: <%= format_date(@event) %></p>
+        <p>Time: <%= @event_detail.day_time %></p>
+        <p>Address:<%= @event_detail.street_address %>, <%= @event_detail.postal_code %>, <%= @event_detail.city %> <%= @event_detail.state %></p>
+        <p>Contact-Person: <%= @organisation.contact_person %></p>
+        <p>Contact Number: <%= @organisation.phone %></p>
+        <p>Email: <%= @organisation.email %></p>
+        <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>" target="_blank"><%= @organisation.name %></a></p>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="event-description">
+          <h2>Event photos:</h2>
+          <%= image_tag @event.event_photos[0].medium.url if @event.event_photos.present? %>
+        </p>
+      </div>
     </div>
   </div>
 </div>
