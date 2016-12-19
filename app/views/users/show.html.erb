@@ -1,11 +1,21 @@
 
-
+<div class="container">
 <% if @user.organisation? %>
   <% if current_user == @user %>
-    <div class="col-lg-12 ">
-      <% render partial: "users/carousel" %>
-        <div class="card-info"> <span class="card-title"><%= @user.organisation_profile.name %></span>
+     <div class="col-lg-12 ">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-3">
+              <div class="useravatar">
+                 <img class="img-circle" alt="" src="<%= @user.organisation_profile.org_photos %>">
+              </div>
+            </div>
+            <div class="col-lg-9">
+              <div class="card-info"> <p><class="card-title"><h2><%= @user.organisation_profile.name %></h2></p>
+            </div>
+          </div>
         </div>
+      </div>
       <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
         <div class="btn-group" role="group">
           <button type="button" id="my profiles" class="btn btn-primary" href="#tab1" data-toggle="tab">
@@ -25,9 +35,14 @@
           <div class="tab-pane fade in active" id="tab1">
             <div class="organization-description"?>
               <div class="container">
-                <div class="col-md-5">
+                <div class="col-md-6">
                   <div class="event-details">
-                    <h2>Contact US!</h2>
+                    <div class="event-description">
+                      <h2>Organisation Description</h2>
+                      <p><%= @user.organisation_profile.org_description %></p>
+                    </div>
+                    </br>
+                    <h2>Contact Us!</h2>
                     <p><%="Website: " if @user.organisation_profile.website.present?%> <a href="<%= @user.organisation_profile.website %>"><%= @user.organisation_profile.name if @user.organisation_profile.website.present? %></a></p>
                     <p>Contact-Person: <%= @user.organisation_profile.contact_person %></p>
                     <p>Contact Number: <%= @user.organisation_profile.phone %></p>
@@ -39,13 +54,14 @@
                   </div>
                 </div>
                 <div class="col-md-6">
-                  <div class="event-description">
-                    <h2>Organisation Description</h2>
-                    <p><%= @user.organisation_profile.org_description %></p>
-                  </div>
+                  
                   <div class="address">
-                    <h2>Address: <%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></h2>
-                    <div id="map"></div>
+                    <div class="row">
+                      <div class="col-lg-12">
+                        <p><h3><strong>Address: </strong></h3><%= @user.organisation_profile.address %>, <%= @user.organisation_profile.postal_code %>, <%= @user.organisation_profile.city %> <%= @user.organisation_profile.state %></p>
+                      </div>
+                      <div class="col-lg-10" id="map"></div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -148,9 +164,9 @@
           </div>
         </div>
       </div>
+      <br/>
     </div>
-   </div>
-   <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
+    <div class="btn-pref btn-group btn-group-justified btn-group-lg" role="group" aria-label="...">
       <div class="btn-group" role="group">
          <button type="button" id="my profiles" class="btn btn-primary" href="#tab1" data-toggle="tab">
             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
@@ -163,8 +179,8 @@
             <div class="hidden-xs">My Events</div>
          </button>
       </div>
-   </div>
-   <div class="well">
+    </div>
+    <div class="well">
       <div class="tab-content">
          <div class="tab-pane fade in active" id="tab1">
             <div class="volunteer-description">
@@ -191,6 +207,31 @@
             <ol>
               <% @volunteered_events_open.each do |event| %>
                 <li><%= link_to event.title, event %></li>
+                    <div class="panel-body">
+                      <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>#</th>
+                              <th>Name</th>
+                              <th>Email</th>
+                              <th>Contact Number</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <% event.event_volunteers.all.each_with_index do |volunteer, index| %>
+                              <tr>
+                                <td><%= index + 1 %></td>
+                                <td><%= volunteer.name if volunteer.name.present? %></td>
+                                <td><%= volunteer.email if volunteer.email.present? %></td>
+                                <td><%= volunteer.phone if volunteer.email.present? %></td>
+                              </tr>
+                            <% end %>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!-- /.table-responsive -->
+                    </div>
               <% end %>
             </ol>
             <h3>Past Events</h3>
@@ -204,6 +245,7 @@
    </div>
   </div> 
 <% end %> 
+</div>
 
 
 

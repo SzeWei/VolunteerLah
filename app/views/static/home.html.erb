@@ -1,4 +1,3 @@
-<body>
     <header id="myCarousel" class="carousel slide">
       <!-- Indicators -->
       <ol class="carousel-indicators">
@@ -10,19 +9,19 @@
       <!-- Wrapper for slides -->
       <div class="carousel-inner">
           <div class="item active">
-              <div class="fill"><img src="/assets/michelangelo-71282.jpg"></div>
+              <div class="fill"><img style="object-fit: cover" src="/assets/michelangelo-71282.jpg"></div>
               <div class="carousel-caption">
                   <h2>Help People</h2>
               </div>
           </div>
           <div class="item">
-              <div class="fill"><img src="/assets/kid-674516.jpg" ></div>
+              <div class="fill"><img style="object-fit: cover" src="/assets/kid-674516.jpg" ></div>
               <div class="carousel-caption">
                   <h2>Save The World</h2>
               </div>
           </div>
           <div class="item">
-              <div class="fill"><img src="/assets/michelangelo-71282.jpg"  ></div>
+              <div class="fill"><img style="object-fit: cover" src="/assets/michelangelo-71282.jpg"  ></div>
               <div class="carousel-caption">
                   <h2>You're Our Only Hope</h2>
               </div>
@@ -38,44 +37,46 @@
       </a>
     </header>
 
-    <hr>
 
-    <hr>
     
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="padding-top: 100px; padding-bottom: 30px;">
 
 
        <%= render partial: "home/form" %>
-        
-        <div class="row">
-           <%=link_to  do %>
-            <div class="col-sm-4">
+
+       <br/>
+
+    </div>   
+    <div class="container-fluid" style="background-color: #f0f5ff; padding-top: 30px; padding-bottom: 30px;">  
+      <div class="container">
+        <div class="row" >
+            <div class="col-sm-4" style="text-align:center;">
                 <%= image_tag("poor-1775239_1280.jpg", class: "img-responsive img-thumbnail img-circle",)  %>
                 <h2>Homeless</h2>
                 <p> The world of the homeless seems very far from yours but in some ways it is quite near. For any of us, the loss of a job, the death of a spouse or a child or a severe physical disability could be the route to total despair. Struck by personal tragedies, the people in shelters across America, have lost their homes and been deserted by the families and friends they once had. What can you do to help them?</p>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" style="text-align:center;">
                 <%= image_tag("mrs-1684465_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
                 <h2>Elderly</h2>
                 <p>There are lots of ways you can do your bit to help lonely or socially isolated elderly people in your community. The person you're helping will reap health benefits, and you'll find you will as well. Volunteering for an organisation that supports older people is a key way of helping a lonely or socially isolated older person. But a simple friendly chat or phone call can make all the difference, too.</p>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4" style="text-align:center;">
                 <%= image_tag("dog-1705124_1280.jpg", class: "img-responsive img-thumbnail img-circle") %>
                 <h2>Animals</h2>
                 <p>All of us can make a difference for animals in our everyday lives, whether it's by adopting a pet, choosing products not tested on animals, eating a humane diet, or engaging your community in animal protection issues. With so many widespread problems facing animals, it takes all of our collective efforts to confront these cruelties and change things for the better.</p>
             </div>
-            <% end %>
-        </div>
-        
+          </div>
+      </div>
+    </div>        
 
-        <hr>
-
+      <div class="container" style="padding-top: 30px; padding-bottom: 30px;">  
         <div class="row">
             <div class="col-sm-8" id="aboutus">
                 <h2>About Us</h2>
                 <p>We believe everyone should have the chance to make a difference. That's why we make it easy for good people and good causes to connect. We've connected millions of people with a great place to volunteer and helped tens of thousands of organizations better leverage volunteers to create real impact.</p>
                 <p>We also offer corporate social responsibilty solutions. Helping your business and employees take part in helping the needs of the many.</p>
+                <%= link_to "Read More..", about_us_path %>
             </div>
 
               <!-- Button -->
@@ -96,9 +97,17 @@
                 </address>
             </div>
         </div>
+      </div>
         <!-- /.row -->
         <hr>
-       
+      <div class="container" style="padding-top: 30px; padding-bottom: 30px;">   
+       <div class="row">
+        <h2>Featured Event</h2>
+        <p>Donation Drive to help the Orphanages.</p>
+      </div>
+    </div>
+
+      <hr>
        
 
     </div>
@@ -106,10 +115,6 @@
 
     <!-- jQuery -->
    <!-- jQuery -->
-  <script src="js/jquery.js"></script>
-
-  <!-- Bootstrap Core JavaScript -->
-  <script src="js/bootstrap.min.js"></script>
 
   <!-- Script to Activate the Carousel -->
   <script>
@@ -118,4 +123,3 @@
   })
 
   </script>
-</body>

@@ -11,7 +11,7 @@
   </ol>
 
   <!-- Wrapper for slides -->
-  <div class="carousel-inner" role="listbox">
+  <div class="carousel-inner" role="listbox" style="object-fit: cover">
     <% count = 0 %>
     <% @user.organisation_profile.org_photos.to_a.each do |img| %>
       <div class="<%= count == 0 ? "item active" : "item" %>" height="400">

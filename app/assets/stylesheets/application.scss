@@ -17,7 +17,6 @@
 
 html,
 body {
-    padding-top: 30px;
     margin-top: 50px;
     width: 100%;
     height: 100%;
@@ -26,6 +25,7 @@ body {
 body {
     font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
 .container {
     display: block;
     padding-top: 0;
@@ -37,23 +37,19 @@ $bgHighlight: #c0392b;
 $colDefault: #ecf0f1;
 $colHighlight: #ffbbbc;
 
-.navbar-default {
-background-color: $bgDefault;
-border-color: $bgHighlight;
-.navbar-brand {
-    color: $colDefault;
-    &:hover, &:focus {
-        color: $colHighlight;
-    }
-		}
+.navbar {
+    background-color: #bdd3ff;
+
+    .navbar-brand {
+        margin-left: 150px;
+        margin-top: -5px;
 	}
-.navbar-text {
-    color: $colDefault;
 }
 .navbar-nav {
+    font-size: 15px;
     > li {
         > a {
-            color: $colDefault;
+            color: black;
             &:hover, &:focus {
                 color: $colHighlight;
             }
@@ -62,23 +58,19 @@ border-color: $bgHighlight;
     > .active {
         > a, > a:hover, > a:focus {
             color: $colHighlight;
-            background-color: $bgHighlight;
         }
     }
     > .open {
         > a, > a:hover, > a:focus {
             color: $colHighlight;
-            background-color: $bgHighlight;
         }
     }
 }
 .navbar-toggle {
     border-color: $bgHighlight;
     &:hover, &:focus {
-        background-color: $bgHighlight;
     }
     .icon-bar {
-        background-color: $colDefault;
     }
 }
 .navbar-collapse,
@@ -123,13 +115,13 @@ header.carousel .fill {
 
 #top {
 	width: 100%;
-	height: 150px;
+	height: 200px;
 }
 .header {
-	position: relative;
+  position: relative;
   width: 100%;
   height: 100%;
-  background: url(../images/michelangelo-71282.jpg) no-repeat center center scroll;
+  background: url("../assets/michelangelo-71282.jpg") no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -253,3 +245,20 @@ header.carousel .fill {
     border-color: #1CA347 ;
 }
 
+.glyphicon-search {
+    color: white;
+}
+
+.glyphicon-plus {
+    color:red;
+}
+
+// .btn-primary, .btn-primary:visited {
+//   background-color: #bdd3ff;
+//   border-color: #bdd3ff;
+// }
+
+// .btn-primary:hover, .btn-primary:active {
+//   background-color: #4264A9;
+//   border-color: #4264A9;
+// }
