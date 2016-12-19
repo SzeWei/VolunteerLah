@@ -7,10 +7,24 @@
 <div class="container">
   <div class="row">
     <div class="col-sm-12"> 
-      <h1 class="page-header">
+      <h1 class="page-header"><br/>
         <%= @event.title %>
       </h1>
       <%= link_to "Edit Event", edit_event_path(@event), class: "btn btn-primary btn-block", style: "color:white" if user_signed_in? && @event.user == current_user %>
+
+  </div>
+  <div class="col-md-6">
+    <div class="event-details">
+      <h2>Event Details</h2>
+      <p>Organization Name: <a href="<%= user_path(@organisation.user) %>"><%= @organisation.name %></a></p>
+      <p>Event type: <em><%= @event.category %></em></p>
+      <p>Date: <%= format_date(@event) %></p>
+      <p>Time: <%= @event_detail.day_time %></p>
+      <p>Address:<%= @event_detail.street_address %>, <%= @event_detail.postal_code %>, <%= @event_detail.city %> <%= @event_detail.state %></p>
+      <p>Contact-Person: <%= @organisation.contact_person %></p>
+      <p>Contact Number: <%= @organisation.phone %></p>
+      <p>Email: <%= @organisation.email %></p>
+      <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>"><%= @event.user.email %>   <img src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" alt="PayPal" /></a></p>
     </div>
   </div>
   <div class="row">
