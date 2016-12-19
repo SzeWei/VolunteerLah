@@ -17,7 +17,6 @@
 
 html,
 body {
-    padding-top: 30px;
     margin-top: 50px;
     width: 100%;
     height: 100%;
@@ -26,6 +25,7 @@ body {
 body {
     font-family: "Source Sans Pro","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+
 .container {
     display: block;
     padding-top: 0;
@@ -38,7 +38,7 @@ $colDefault: #ecf0f1;
 $colHighlight: #ffbbbc;
 
 .navbar {
-    background-color: white;
+    background-color: #bdd3ff;
 
     .navbar-brand {
         margin-left: 150px;
@@ -115,13 +115,13 @@ header.carousel .fill {
 
 #top {
 	width: 100%;
-	height: 150px;
+	height: 200px;
 }
 .header {
-	position: relative;
+  position: relative;
   width: 100%;
   height: 100%;
-  background: url(../images/michelangelo-71282.jpg) no-repeat center center scroll;
+  background: url("../assets/michelangelo-71282.jpg") no-repeat center center scroll;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   background-size: cover;
@@ -252,3 +252,13 @@ header.carousel .fill {
 .glyphicon-plus {
     color:red;
 }
+
+// .btn-primary, .btn-primary:visited {
+//   background-color: #bdd3ff;
+//   border-color: #bdd3ff;
+// }
+
+// .btn-primary:hover, .btn-primary:active {
+//   background-color: #4264A9;
+//   border-color: #4264A9;
+// }
