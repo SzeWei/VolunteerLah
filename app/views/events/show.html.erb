@@ -22,7 +22,7 @@
       <p>Contact-Person: <%= @organisation.contact_person %></p>
       <p>Contact Number: <%= @organisation.phone %></p>
       <p>Email: <%= @organisation.email %></p>
-      <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>"><%= @organisation.name %></a></p>
+      <p>Paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=<%= @event.user.email %>" target="_blank"><%= @organisation.name %></a></p>
     </div>
   </div>
   <div class="col-md-6">

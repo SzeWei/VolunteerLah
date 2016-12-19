@@ -37,26 +37,19 @@ $bgHighlight: #c0392b;
 $colDefault: #ecf0f1;
 $colHighlight: #ffbbbc;
 
-.navbar-default {
-background-color: $bgDefault;
-border-color: $bgHighlight;
-.navbar-brand {
-    margin-left: 150px;
-    margin-top: -5px;
-    color: $colDefault;
-    &:hover, &:focus {
-        color: $colHighlight;
-    }
-		}
+.navbar {
+    background-color: white;
+
+    .navbar-brand {
+        margin-left: 150px;
+        margin-top: -5px;
 	}
-.navbar-text {
-    color: $colDefault;
 }
 .navbar-nav {
     font-size: 15px;
     > li {
         > a {
-            color: $colDefault;
+            color: black;
             &:hover, &:focus {
                 color: $colHighlight;
             }
@@ -65,23 +58,19 @@ border-color: $bgHighlight;
     > .active {
         > a, > a:hover, > a:focus {
             color: $colHighlight;
-            background-color: $bgHighlight;
         }
     }
     > .open {
         > a, > a:hover, > a:focus {
             color: $colHighlight;
-            background-color: $bgHighlight;
         }
     }
 }
 .navbar-toggle {
     border-color: $bgHighlight;
     &:hover, &:focus {
-        background-color: $bgHighlight;
     }
     .icon-bar {
-        background-color: $colDefault;
     }
 }
 .navbar-collapse,
@@ -260,3 +249,6 @@ header.carousel .fill {
     color: white;
 }
 
+.glyphicon-plus {
+    color:red;
+}
