@@ -67,9 +67,16 @@
                         <div class="log-in" style="margin-left: 15px;">
                           <h4>Profile Details</h4>
                           <p>* Mandatory fields</p>
+                          <%= f.label :name.to_s + "*" %><br />
+                          <%= f.text_field :name %><br />
                         </div>
+                      </br>
                         <%= f.fields_for :profile do |u| %>
                           <div class="col-lg-6">
+                            <div class="field">
+                              <%= u.label :skills %><br />
+                              <%= u.text_area :skills %>
+                            </div>
                             <div class="field">
                               <%= u.label :skills %><br />
                               <%= u.text_area :skills %>
@@ -94,12 +101,12 @@
                               <%= u.label :contact_email.to_s + "*" %><br />
                               <%= u.text_field :contact_email %>
                             </div>
+                          </div>
+                          <div class="col-lg-6">
                             <div class="field">
                               <%= u.label :language.to_s + "*" %><br />
                               <%= u.text_field :language %>
                             </div>
-                          </div>
-                          <div class="col-lg-6">
                             <div class="field">
                               <%= u.label :work %><br />
                               <%= u.text_area :work %>

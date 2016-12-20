@@ -41,9 +41,14 @@ $colHighlight: #ffbbbc;
     background-color: #bdd3ff;
 
     .navbar-brand {
+        font-family: 'Oleo Script', cursive;
+        font-weight: 700;
+        color: navy;
         margin-left: 150px;
-        margin-top: -5px;
-	}
+        padding-top: 15px;
+        background-color: #bdd3ff;
+        font-size: 30px;
+    }
 }
 .navbar-nav {
     font-size: 15px;
