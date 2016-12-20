@@ -115,42 +115,46 @@
 
 	function updateMap()
  {
- 	var addr_full = '';
- 	// addr_full += document.getElementById('addr_venue_title').value + ', ';
- 	addr_full += document.getElementById('addr_street_address').value + ', ';
- 	addr_full += document.getElementById('addr_postal_code').value + ', ';
- 	addr_full += document.getElementById('addr_city').value + ', ';
- 	addr_full += document.getElementById('addr_state').value;
- 
- 	geocoder.geocode({
-      'address': addr_full
-    }, function(results,status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0]) {
-          latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
-          changeMarkedPosition(latlng);
-          getNearEvent(latlng);
-        }
-        else
-        {
-          latlng = {lat: 3.27229523935188, lng: 101.570401983462};
-          changeMarkedPosition(latlng);
-          getNearEvent(latlng);
-        }
-      }
-      else
-      {
-        latlng = {lat: 3.27229523935188, lng: 101.570401983462};
-        changeMarkedPosition(latlng);
-        getNearEvent(latlng);
-      }
-    })
- }
+ 	
+  	var addr_full = '';
+  	// addr_full += document.getElementById('addr_venue_title').value + ', ';
+  	addr_full += document.getElementById('addr_street_address').value + ', ';
+  	addr_full += document.getElementById('addr_postal_code').value + ', ';
+  	addr_full += document.getElementById('addr_city').value + ', ';
+  	addr_full += document.getElementById('addr_state').value;
+  
+  	geocoder.geocode({
+       'address': addr_full
+     }, function(results,status) {
+       if (status == google.maps.GeocoderStatus.OK) {
+         if (results[0]) {
+           latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+           changeMarkedPosition(latlng);
+           getNearEvent(latlng);
+         }
+         else
+         {
+           latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+           changeMarkedPosition(latlng);
+           getNearEvent(latlng);
+         }
+       }
+       else
+       {
+         latlng = {lat: 3.27229523935188, lng: 101.570401983462};
+         changeMarkedPosition(latlng);
+         getNearEvent(latlng);
+       }
+     })
+}
  
  function changeMarkedPosition(latlng)
  {
  	map.setCenter(latlng);
  	marker.setPosition(latlng);
+ 	document.getElementById('lat').value = latlng.lat;
+ 	document.getElementById('lng').value = latlng.lng;
+ 	circle.setCenter(latlng);
  }
  function getNearEvent(latlng)
 	{
