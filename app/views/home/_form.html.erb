@@ -25,9 +25,9 @@
             <input id="city" name="city" type="text" style="width:150px" placeholder="City" class="form-control"> 
           </div>
           <!-- Select Basic -->
-          <div class="form-group form-inline">
+          <div class="form-group form-inline" >
             <label class="col-md-3 control-label" for="cause"></label>  
-            <input id="cause" name="cause" type="text" style="width:150px" placeholder="Cause" class="form-control"> 
+            <%= select_tag :categories, @categories.html_safe, id: "cause", name: "the_category", placeholder: "Cause", class: "form-control", style:"width:150px"%> 
           </div>
           <!-- /.row -->
           <div class="form-group form-inline">
@@ -44,12 +44,12 @@
 
 <script>
   $( function() {
-    var dateFormat = "mm/dd/yy",
-      from = $( "#from" )
+    var from = $( "#from" )
         .datepicker({
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 2
+          numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
         })
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
@@ -57,7 +57,8 @@
       to = $( "#to" ).datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 2
+        numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
       })
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
