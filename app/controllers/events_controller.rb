@@ -7,7 +7,7 @@ class EventsController < ApplicationController
   def index
     # Filters Events according to given parameters
     @categories = Event.categories.keys.to_a.map { |r| "<option value='#{r}'>#{r.humanize}</option>" }.join
-    filter_params = params.slice(:category, :city, :start_date, :end_date, :search, :near)
+    filter_params = params.slice(:the_category, :city, :start_date, :end_date, :search, :near)
     filter_params.merge(:status_open => current_user.id) if user_signed_in?
     # Calls method Event#filter from "app/models/concerns/filterable.rb"
     @events = Event.filter(filter_params)
