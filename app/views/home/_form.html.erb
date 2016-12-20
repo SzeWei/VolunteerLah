@@ -44,12 +44,12 @@
 
 <script>
   $( function() {
-    var dateFormat = "mm/dd/yy",
-      from = $( "#from" )
+    var from = $( "#from" )
         .datepicker({
           defaultDate: "+1w",
           changeMonth: true,
-          numberOfMonths: 2
+          numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
         })
         .on( "change", function() {
           to.datepicker( "option", "minDate", getDate( this ) );
@@ -57,7 +57,8 @@
       to = $( "#to" ).datepicker({
         defaultDate: "+1w",
         changeMonth: true,
-        numberOfMonths: 2
+        numberOfMonths: 2,
+          dateFormat: "yy-mm-dd"
       })
       .on( "change", function() {
         from.datepicker( "option", "maxDate", getDate( this ) );
